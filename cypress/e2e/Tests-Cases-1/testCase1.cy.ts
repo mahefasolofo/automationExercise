@@ -1,10 +1,10 @@
 /// <reference types="cypress" />
 
-describe('Test Cases 1 : Register User', () => {
-  it('Tests Case 1', () => {
+describe('Test Case 1', () => {
+  it('Test Case 1', () => {
     cy.visit('https://automationexercise.com')
     cy.url().should('eq', 'https://automationexercise.com/')
-    cy.get('body').should('be.visible')
+    cy.get('a').contains('Home').should('have.css', 'color', 'rgb(255, 165, 0)')
     cy.get('li').contains('Signup').click()
     cy.get('h2').should('contain', 'New User Signup!')
     cy.get('[data-qa="signup-name"]').type('mahefa')
