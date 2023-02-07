@@ -83,13 +83,21 @@ describe('Test Case 14: Place Order: Register while Checkout', () => {
     cy.get('[data-qa="expiry-month"]').type('12')
     cy.get('[data-qa="expiry-year"]').type('2025')
     cy.get('button').contains('Pay and Confirm Order').click()
+    // cy.pause()
     cy.get('p')
       .contains('Congratulations! Your order has been confirmed!')
       .should('exist')
   })
   afterEach(() => {
     //Delete account
-    cy.get('li').contains('Delete Account').click()
-    cy.get('[data-qa="continue-button"]').click()
+    cy.request('DELETE', 'https://automationexercise.com/api/deleteAccount', {
+      email: 'rick@example.com',
+      password: '123456',
+    }).then((response) => {
+      // response.body is automatically serialized into JSON
+      expect(response.status).to.eq(200) // true
+    })
+    // cy.visit('https://automationexercise.com/api/deleteAccount')
+    // cy.get('[data-method="DELETE"] button:contain("delete")').click()
   })
 })

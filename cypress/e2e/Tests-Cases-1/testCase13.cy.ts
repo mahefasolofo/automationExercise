@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
-describe('Test Case 8: Verify All Products and product detail page', () => {
-  it('Test Case 8', () => {
+describe('Test Case 13', () => {
+  it('Test Case 13', () => {
     cy.visit('https://automationexercise.com')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get('a').contains('Home').should('have.css', 'color', 'rgb(255, 165, 0)')
