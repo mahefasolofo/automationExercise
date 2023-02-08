@@ -9,6 +9,6 @@ describe('Test Case 7: Verify Test Cases Page', () => {
 
     cy.get('li')
       .contains('Test Cases')
-      .should('have.css', 'color', 'rgb(255, 165, 0)')
+      .should('have.css', 'color', 'rgb(255, 165, 0)') //TODO : remplacer par les éléments qui doivent être présents
   })
 })

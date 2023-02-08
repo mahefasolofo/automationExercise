@@ -4,7 +4,7 @@ describe('Test Case 6 : Contact Us Form', () => {
   it('Test Case 6', () => {
     cy.visit('https://automationexercise.com')
     cy.url().should('eq', 'https://automationexercise.com/')
-    cy.get('a').contains('Home').should('have.css', 'color', 'rgb(255, 165, 0)')
+    cy.get('a').contains('Home').should('have.css', 'color', 'rgb(255, 165, 0)') //TODO : remplacer par les éléments qui doivent être présents
     cy.get('li').contains('Contact us').click()
     cy.get('h2').should('contain', 'Get In Touch')
     cy.get('[data-qa="name"]').type('John')

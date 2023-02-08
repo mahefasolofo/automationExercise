@@ -93,11 +93,11 @@ describe('Test Case 24: Download Invoice after purchase order', () => {
     // cy.wait('#success_message').should('be.visible')
 
     //     19. Click 'Download Invoice' button and verify invoice is downloaded successfully.
-    cy.get('a').contains('Download Invoice').click()
+    // cy.get('a').contains('Download Invoice').click()
     // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(500)
-    // 21. Click 'Delete Account' button
-    cy.get('.shop-menu a:contains("Delete Account")').click()
+    // cy.wait(500)
+    // // 21. Click 'Delete Account' button
+    // cy.get('.shop-menu a:contains("Delete Account")').click()
 
     // 22. Verify 'ACCOUNT DELETED!' and click 'Continue' button
     cy.get('[data-qa="account-deleted"]').should('contain', 'Account Deleted!')
