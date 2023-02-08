@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
-
+import LoginPage from '../pageObject/loginPage'
+const loginPage = new LoginPage()
 describe('Test Case 20: Search Products and Verify Cart After Login', () => {
   beforeEach(() => {
     cy.visit('https://automationexercise.com')
@@ -72,9 +73,7 @@ describe('Test Case 20: Search Products and Verify Cart After Login', () => {
     // 10. Click 'Signup / Login' button and submit login details
     cy.get('li').contains('Signup').click()
     cy.get('h2').should('contain', 'Login to your account')
-    cy.get('[data-qa="login-email"]').type('john@example.com')
-    cy.get('[data-qa="login-password"]').type('123456')
-    cy.get('[data-qa="login-button"]').click()
+    loginPage.fillLoginData('john@example.com', '123456')
     // 11. Again, go to Cart page
     cy.get('li').contains('Cart').click()
     // 12. Verify that those products are visible in cart after login as well

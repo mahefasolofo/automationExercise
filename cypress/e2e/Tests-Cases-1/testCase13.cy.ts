@@ -4,8 +4,8 @@ describe('Test Case 13', () => {
   it('Test Case 13', () => {
     cy.visit('https://automationexercise.com')
     cy.url().should('eq', 'https://automationexercise.com/')
-    cy.get('a').contains('Home').should('have.css', 'color', 'rgb(255, 165, 0)')
-    cy.get('li').contains('Products').click()
+    cy.get('#slider').should('be.visible')
+    cy.get('li').contains('Products').click() //TODO : change locator
     cy.get('a')
       .contains('Products')
       .should('have.css', 'color', 'rgb(255, 165, 0)')
@@ -13,7 +13,7 @@ describe('Test Case 13', () => {
     cy.url().should('eq', 'https://automationexercise.com/product_details/1')
     cy.get('input[name="quantity"]').clear().type('4')
     cy.get('button').contains('Add to cart').click()
-    cy.get('a').contains('View Cart').click()
+    cy.get('a').contains('View Cart').click() //TODO : change locator
     cy.get('#product-1').should('exist')
     cy.get('#product-1 .cart_quantity .disabled').contains('4').should('exist')
   })

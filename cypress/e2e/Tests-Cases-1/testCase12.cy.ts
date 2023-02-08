@@ -4,7 +4,7 @@ describe('Test Case 12: Add Products in Cart', () => {
   beforeEach(() => {
     cy.visit('https://automationexercise.com')
     cy.url().should('eq', 'https://automationexercise.com/')
-    cy.get('a').contains('Home').should('have.css', 'color', 'rgb(255, 165, 0)')
+    cy.get('#slider').should('be.visible')
   })
   it('Test case 12', () => {
     //TODO: rajouter un bon titre pour chaque it

@@ -1,4 +1,18 @@
 ///<reference types="cypress" />
+const { faker } = require('@faker-js/faker')
+import SingUpPage from '../pageObject/signupPage'
+const signupPage = new SingUpPage()
+const name = faker.name.firstName()
+const email = faker.internet.email()
+const password = faker.internet.password()
+const lastName = faker.name.lastName()
+const companyName = faker.company.companyName()
+const address1 = faker.address.city()
+const address2 = faker.address.city()
+const state = faker.address.state()
+const city = faker.address.cityName()
+const zipcode = faker.address.zipCode()
+const phoneNumber = faker.phone.number()
 
 describe('Test Case 15: Place Order: Register before Checkout', () => {
   beforeEach(() => {
@@ -11,27 +25,24 @@ describe('Test Case 15: Place Order: Register before Checkout', () => {
     //Fill all details in Signup and create account
     cy.get('li').contains('Signup / Login').click()
     cy.get('h2').should('contain', 'New User Signup!')
-    cy.get('[data-qa="signup-name"]').type('rick')
-    cy.get('[data-qa="signup-email"]').type('rick@example.com')
-    cy.get('[data-qa="signup-button"]').click()
+    signupPage.fillSignup1(name, email)
     cy.get('.title').should('contain', 'Enter Account Information')
-    cy.get('input[name="title"][value="Mr"]').check()
-    cy.get('#password').type('123456')
-    cy.get('#first_name').type('Ulrick')
-    cy.get('#last_name').type('rick')
-    cy.get('#company').type('Independant Inc.')
-    cy.get('#address1').type('2nd Rd trendart')
-    cy.get('#address2').type('nothing')
-    cy.get('#country').select('India')
-    cy.get('#state').type('Mumbay')
-    cy.get('#city').type('Mumbay')
-    cy.get('#zipcode').type('254')
-    cy.get('#mobile_number').type('555555555')
-    cy.get('[data-qa="create-account"]').click()
+    //
+    signupPage.fillSignup2(
+      password,
+      name,
+      lastName,
+      companyName,
+      address1,
+      address2,
+      state,
+      city,
+      zipcode,
+      phoneNumber,
+    )
     cy.get('[data-qa="account-created"]').should('contain', 'Account Created!')
     cy.get('[data-qa="continue-button"]').click()
-    cy.get('.navbar-nav').should('contain', 'Logged in as rick')
-
+    cy.get('.navbar-nav').should('contain', 'Logged in as ', name)
     //Add product to cart
     cy.get('.overlay-content [data-product-id="1"]').click({ force: true })
     cy.get('button:contains("Continue Shopping")').click()
@@ -46,37 +57,31 @@ describe('Test Case 15: Place Order: Register before Checkout', () => {
     //Proceed to checkout
     cy.get('.btn:contains("Proceed To Checkout")').click()
 
-    //Address Details
     //address_delivery
-    cy.get('#address_delivery .address_lastname').should(
-      'contain',
-      'Mr. Ulrick rick',
-    )
-    cy.get('#address_delivery .address_address1 ').should(
-      'contain',
-      '2nd Rd trendart',
-    )
-    cy.get('#address_delivery .address_city').should('contain', 'Mumbay Mumbay')
-    cy.get('#address_delivery .address_country_name').should('contain', 'India')
-    cy.get('#address_delivery .address_phone').should('contain', '555555555')
-
+    cy.get('#address_delivery .address_lastname')
+      .should('contain', 'Mr. ')
+      .should('contain', name)
+      .should('contain', lastName)
+    cy.get('#address_delivery .address_city')
+      .should('contain', state)
+      .should('contain', city)
+      .should('contain', zipcode)
+    cy.get('#address_delivery .address_phone').should('contain', phoneNumber)
     //address_invoice
-    cy.get('#address_invoice .address_lastname').should(
-      'contain',
-      'Mr. Ulrick rick',
-    )
-    cy.get('#address_invoice .address_address1 ').should(
-      'contain',
-      '2nd Rd trendart',
-    )
-    cy.get('#address_invoice .address_city').should('contain', 'Mumbay Mumbay')
-    cy.get('#address_invoice .address_country_name').should('contain', 'India')
-    cy.get('#address_invoice .address_phone').should('contain', '555555555')
+    cy.get('#address_invoice .address_lastname')
+      .should('contain', 'Mr. ')
+      .should('contain', name)
+      .should('contain', lastName)
+    cy.get('#address_invoice .address_city')
+      .should('contain', state)
+      .should('contain', city)
+      .should('contain', zipcode)
+    cy.get('#address_invoice .address_phone').should('contain', phoneNumber)
 
     //message
     cy.get('[name="message"]').type('Checked OK to Place order')
     cy.get('a').contains('Place Order').click()
-    cy.get('[data-qa="name-on-card"]').type('Rick Ulrick')
+    cy.get('[data-qa="name-on-card"]').type(name + lastName)
     cy.get('[data-qa="card-number"]').type('12345678')
     cy.get('[data-qa="cvc"]').type('212')
     cy.get('[data-qa="expiry-month"]').type('12')

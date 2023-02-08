@@ -1,5 +1,18 @@
 /// <reference types="cypress" />
-
+const { faker } = require('@faker-js/faker')
+import SingUpPage from '../pageObject/signupPage'
+const signupPage = new SingUpPage()
+const name = faker.name.firstName()
+const email = faker.internet.email()
+const password = faker.internet.password()
+const lastName = faker.name.lastName()
+const companyName = faker.company.companyName()
+const address1 = faker.address.city()
+const address2 = faker.address.city()
+const state = faker.address.state()
+const city = faker.address.cityName()
+const zipcode = faker.address.zipCode()
+const phoneNumber = faker.phone.number()
 describe('Test Case 23: Verify address details in checkout page', () => {
   beforeEach(() => {
     cy.visit('https://automationexercise.com')
@@ -11,29 +24,26 @@ describe('Test Case 23: Verify address details in checkout page', () => {
   it('Tests Case 23', () => {
     // 4. Click 'Signup / Login' button
     cy.get('li').contains('Signup').click()
-    // 5. Fill all details in Signup and create account
-    cy.get('[data-qa="signup-name"]').type('mahefa')
-    cy.get('[data-qa="signup-email"]').type('mahefa@gmail.com')
-    cy.get('[data-qa="signup-button"]').click()
+    signupPage.fillSignup1(name, email)
+    //Account informations
     cy.get('.title').should('contain', 'Enter Account Information')
-    cy.get('input[name="title"][value="Mr"]').check()
-    cy.get('#password').type('123456')
-    cy.get('#first_name').type('Randria')
-    cy.get('#last_name').type('Mahefa')
-    cy.get('#company').type('Independant Inc.')
-    cy.get('#address1').type('Iavoloha')
-    cy.get('#address2').type('Mahazo')
-    cy.get('#country').select('India')
-    cy.get('#state').type('Mumbay')
-    cy.get('#city').type('Mumbay')
-    cy.get('#zipcode').type('101')
-    cy.get('#mobile_number').type('0320714589')
-    cy.get('[data-qa="create-account"]').click()
+    signupPage.fillSignup2(
+      password,
+      name,
+      lastName,
+      companyName,
+      address1,
+      address2,
+      state,
+      city,
+      zipcode,
+      phoneNumber,
+    )
     // 6. Verify 'ACCOUNT CREATED!' and click 'Continue' button
     cy.get('[data-qa="account-created"]').should('contain', 'Account Created!')
     cy.get('[data-qa="continue-button"]').click()
     // 7. Verify ' Logged in as username' at top
-    cy.get('.navbar-nav').should('contain', 'Logged in as mahefa')
+    cy.get('.navbar-nav').should('contain', 'Logged in as ', name)
 
     // 8. Add products to cart
     cy.get('.overlay-content [data-product-id="1"]').click({ force: true })
@@ -49,33 +59,26 @@ describe('Test Case 23: Verify address details in checkout page', () => {
     // 11. Click Proceed To Checkout
     cy.get('.btn:contains("Proceed To Checkout")').click()
     // 12. Verify that the delivery address is same address filled at the time registration of account
-    cy.get('#address_delivery .address_lastname').should(
-      'contain',
-      'Mr. Randria Mahefa',
-    )
-    cy.get('#address_delivery .address_address1 ').should(
-      'contain',
-      'Independant Inc.',
-    )
-    cy.get('#address_delivery .address_address1 ').should('contain', 'Iavoloha')
-    cy.get('#address_delivery .address_address1 ').should('contain', 'Mahazo')
-    cy.get('#address_delivery .address_city').should('contain', 'Mumbay Mumbay')
-    cy.get('#address_delivery .address_country_name').should('contain', 'India')
-    cy.get('#address_delivery .address_phone').should('contain', '0320714589')
-    // 13. Verify that the billing address is same address filled at the time registration of account
-    cy.get('#address_invoice .address_lastname').should(
-      'contain',
-      'Mr. Randria Mahefa',
-    )
-    cy.get('#address_invoice .address_address1 ').should(
-      'contain',
-      'Independant Inc.',
-    )
-    cy.get('#address_invoice .address_address1 ').should('contain', 'Iavoloha')
-    cy.get('#address_invoice .address_address1 ').should('contain', 'Mahazo')
-    cy.get('#address_invoice .address_city').should('contain', 'Mumbay Mumbay')
-    cy.get('#address_invoice .address_country_name').should('contain', 'India')
-    cy.get('#address_invoice .address_phone').should('contain', '0320714589')
+    //address_delivery
+    cy.get('#address_delivery .address_lastname')
+      .should('contain', 'Mr. ')
+      .should('contain', name)
+      .should('contain', lastName)
+    cy.get('#address_delivery .address_city')
+      .should('contain', state)
+      .should('contain', city)
+      .should('contain', zipcode)
+    cy.get('#address_delivery .address_phone').should('contain', phoneNumber)
+    //address_invoice
+    cy.get('#address_invoice .address_lastname')
+      .should('contain', 'Mr. ')
+      .should('contain', name)
+      .should('contain', lastName)
+    cy.get('#address_invoice .address_city')
+      .should('contain', state)
+      .should('contain', city)
+      .should('contain', zipcode)
+    cy.get('#address_invoice .address_phone').should('contain', phoneNumber)
     // 14. Click 'Delete Account' button
     cy.get('li').contains('Delete Account').click()
 

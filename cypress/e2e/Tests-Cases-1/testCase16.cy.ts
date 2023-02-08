@@ -1,4 +1,6 @@
 /// <reference types="cypress" />
+import LoginPage from '../pageObject/loginPage'
+const loginPage = new LoginPage()
 
 describe('Test Case 16: Place Order: Login before Checkout', () => {
   beforeEach(() => {
@@ -10,9 +12,7 @@ describe('Test Case 16: Place Order: Login before Checkout', () => {
   it('Tests Case 16', () => {
     cy.get('li').contains('Signup').click()
     cy.get('h2').should('contain', 'Login to your account')
-    cy.get('[data-qa="login-email"]').type('john@example.com')
-    cy.get('[data-qa="login-password"]').type('123456')
-    cy.get('[data-qa="login-button"]').click()
+    loginPage.fillLoginData('john@example.com', '123456')
     //Add product to Cart
     cy.get('.overlay-content [data-product-id="1"]').click({ force: true })
     cy.get('button:contains("Continue Shopping")').click()

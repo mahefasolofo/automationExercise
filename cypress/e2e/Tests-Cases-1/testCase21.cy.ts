@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
-
+import ContactPage from '../pageObject/contactPage'
+const contactpage = new ContactPage()
 describe('Test Case 21: Add review on product', () => {
   beforeEach(() => {
     cy.visit('https://automationexercise.com')
@@ -18,11 +19,7 @@ describe('Test Case 21: Add review on product', () => {
     // 6. Verify 'Write Your Review' is visible
     cy.get('a:contains("Write Your Review")').should('exist')
     // 7. Enter name, email and review
-    cy.get('#name').type('John')
-    cy.get('#email').type('john@example.com')
-    cy.get('#review').type('It is a Message for you')
-    // 8. Click 'Submit' button
-    cy.get('#button-review').click()
+    contactpage.fillReview('John', 'john@example.com')
     // 9. Verify success message 'Thank you for your review.
     cy.get('#review-section .alert-success > span').contains(
       'Thank you for your review.',

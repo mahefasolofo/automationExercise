@@ -4,7 +4,7 @@ describe('Test Case 17: Remove Products From Cart', () => {
   beforeEach(() => {
     cy.visit('https://automationexercise.com')
     cy.url().should('eq', 'https://automationexercise.com/')
-    cy.get('a').contains('Home').should('have.css', 'color', 'rgb(255, 165, 0)')
+    cy.get('#slider').should('be.visible')
   })
 
   it('Tests Case 17', () => {
@@ -16,7 +16,7 @@ describe('Test Case 17: Remove Products From Cart', () => {
     cy.get('.overlay-content [data-product-id="3"]').click({ force: true })
     cy.get('button:contains("Continue Shopping")').click()
     //Click cart button
-    cy.get('li').contains('Cart').click()
+    cy.get('li').contains('Cart').click() //TODO: change locator
     //verify that cart page is displayed
     cy.get('.active:contains("Shopping Cart")').should('exist')
     //Click X button corresponding to particular product
