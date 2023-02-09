@@ -2,6 +2,16 @@
 const { faker } = require('@faker-js/faker')
 import SingUpPage from '../pageObject/signupPage'
 const signupPage = new SingUpPage()
+import NavbarPage from '../pageObject/navbarPage'
+const navbarPage = new NavbarPage()
+import VerificationPage from '../pageObject/verificationPage'
+const verificationPage = new VerificationPage()
+import PaymentPage from '../pageObject/payementPage'
+const paymentPage = new PaymentPage()
+import AddProductPage from '../pageObject/addProductPage'
+const addProductPage = new AddProductPage()
+
+const title = 'Mr.'
 const name = faker.name.firstName()
 const email = faker.internet.email()
 const password = faker.internet.password()
@@ -13,17 +23,22 @@ const state = faker.address.state()
 const city = faker.address.cityName()
 const zipCode = faker.address.zipCode()
 const phoneNumber = faker.phone.number()
+const cardNumber = faker.finance.creditCardNumber()
+const cvc = faker.finance.creditCardCVV()
+const cardMonth = faker.datatype.number({ min: 1, max: 12 }).toString()
+let futureDate = faker.date.future(5)
+const cardYear = futureDate.getFullYear()
 
 describe('Test Case 15: Place Order: Register before Checkout', () => {
   beforeEach(() => {
     cy.visit('https://automationexercise.com')
     cy.url().should('eq', 'https://automationexercise.com/')
-    // cy.get('a').contains('Home').should('have.css', 'color', 'rgb(255, 165, 0)')
+    cy.get('#slider').should('be.visible')
   })
 
   it('test case 15: Place Order: Register before Checkout', () => {
     //Fill all details in Signup and create account
-    cy.get('li').contains('Signup / Login').click()
+    navbarPage.goToSignup()
     cy.get('h2').should('contain', 'New User Signup!')
     signupPage.fillSignupForm(name, email)
     cy.get('.title').should('contain', 'Enter Account Information')
@@ -40,60 +55,51 @@ describe('Test Case 15: Place Order: Register before Checkout', () => {
       zipCode,
       phoneNumber,
     )
-    cy.get('[data-qa="account-created"]').should('contain', 'Account Created!')
-    cy.get('[data-qa="continue-button"]').click()
     cy.get('.navbar-nav').should('contain', 'Logged in as ', name)
     //Add product to cart
-    cy.get('.overlay-content [data-product-id="1"]').click({ force: true })
-    cy.get('button:contains("Continue Shopping")').click()
-    cy.get('.overlay-content [data-product-id="2"]').click({ force: true })
-    cy.get('button:contains("Continue Shopping")').click()
-    cy.get('.overlay-content [data-product-id="3"]').click({ force: true })
-    cy.get('button:contains("Continue Shopping")').click()
+    addProductPage.addRandomProduct()
+
     //Click cart button
-    cy.get('li').contains('Cart').click()
-    //verify that cart page is displayed
-    cy.get('.active:contains("Shopping Cart")').should('exist')
+    navbarPage.goToCart()
+
     //Proceed to checkout
     cy.get('.btn:contains("Proceed To Checkout")').click()
 
-    //address_delivery
-    cy.get('#address_delivery .address_lastname')
-      .should('contain', 'Mr. ')
-      .should('contain', name)
-      .should('contain', lastName)
-    cy.get('#address_delivery .address_city')
-      .should('contain', state)
-      .should('contain', city)
-      .should('contain', zipCode)
-    cy.get('#address_delivery .address_phone').should('contain', phoneNumber)
+    verificationPage.addressBilling(
+      title,
+      name,
+      lastName,
+      state,
+      city,
+      zipCode,
+      phoneNumber,
+    )
     //address_invoice
-    cy.get('#address_invoice .address_lastname')
-      .should('contain', 'Mr. ')
-      .should('contain', name)
-      .should('contain', lastName)
-    cy.get('#address_invoice .address_city')
-      .should('contain', state)
-      .should('contain', city)
-      .should('contain', zipCode)
-    cy.get('#address_invoice .address_phone').should('contain', phoneNumber)
-
+    verificationPage.addressBilling(
+      title,
+      name,
+      lastName,
+      state,
+      city,
+      zipCode,
+      phoneNumber,
+    )
     //message
     cy.get('[name="message"]').type('Checked OK to Place order')
     cy.get('a').contains('Place Order').click()
-    cy.get('[data-qa="name-on-card"]').type(name + lastName)
-    cy.get('[data-qa="card-number"]').type('12345678')
-    cy.get('[data-qa="cvc"]').type('212')
-    cy.get('[data-qa="expiry-month"]').type('12')
-    cy.get('[data-qa="expiry-year"]').type('2025')
-    cy.get('button').contains('Pay and Confirm Order').click()
-    cy.get('p')
-      .contains('Congratulations! Your order has been confirmed!')
-      .should('exist')
+    paymentPage.fillPaymentForm(
+      name,
+      lastName,
+      cardNumber,
+      cvc,
+      cardMonth,
+      cardYear,
+    )
   })
   afterEach(() => {
     //Delete account
-    cy.get('li').contains('Delete Account').click()
-    cy.get('[data-qa="continue-button"]').click()
+    navbarPage.goToDelete()
+    cy.window().scrollTo('top')
+    cy.get('#slider').should('be.visible')
   })
 })

@@ -1,14 +1,14 @@
 const selectors = {
-  navHome: '[href="/"]:first',
-  navProduct: '[href="/products"]',
-  navCart: '[href="/view_cart"]:first',
-  navSignup: '[href="/login"]',
-  navTestCases: '[href="/test_cases"]',
-  navAPITesting: '[href="/api_list"]',
-  navVideo: '[href="https://www.youtube.com/c/AutomationExercise"]',
-  navContactUs: '[href="/contact_us"]',
-  navLogout: '[href="/logout"]',
-  navDelete: '[href="/delete_account"]',
+  navHome: '.navbar-nav [href="/"]',
+  navProduct: '.navbar-nav [href="/products"]',
+  navCart: '.navbar-nav [href="/view_cart"]:first',
+  navSignup: '.navbar-nav [href="/login"]',
+  navTestCases: '.navbar-nav [href="/test_cases"]',
+  navAPITesting: '.navbar-nav [href="/api_list"]',
+  navVideo: '.navbar-nav [href="https://www.youtube.com/c/AutomationExercise"]',
+  navContactUs: '.navbar-nav [href="/contact_us"]',
+  navLogout: '.navbar-nav [href="/logout"]',
+  navDelete: '.navbar-nav [href="/delete_account"]',
 }
 class NavbarPage {
   goToHome() {

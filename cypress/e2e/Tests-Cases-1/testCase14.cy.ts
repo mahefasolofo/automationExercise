@@ -8,6 +8,8 @@ import VerificationPage from '../pageObject/verificationPage'
 const verificationPage = new VerificationPage()
 import PaymentPage from '../pageObject/payementPage'
 const paymentPage = new PaymentPage()
+import AddProductPage from '../pageObject/addProductPage'
+const addProductPage = new AddProductPage()
 
 const title = 'Mr.'
 const name = faker.name.firstName()
@@ -35,12 +37,7 @@ describe('Test Case 14: Place Order: Register while Checkout', () => {
 
   it('test case 14', () => {
     //Add product to cart
-    cy.get('.overlay-content [data-product-id="1"]').click({ force: true })
-    cy.get('button:contains("Continue Shopping")').click()
-    cy.get('.overlay-content [data-product-id="2"]').click({ force: true })
-    cy.get('button:contains("Continue Shopping")').click()
-    cy.get('.overlay-content [data-product-id="3"]').click({ force: true })
-    cy.get('button:contains("Continue Shopping")').click()
+    addProductPage.addRandomProduct()
     navbarPage.goToCart()
     //verify that cart page is displayed
     cy.get('.active:contains("Shopping Cart")').should('be.visible')
