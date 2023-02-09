@@ -7,7 +7,7 @@ describe('Test Case 19: View & Cart Brand Products', () => {
     cy.get('a').contains('Home').should('have.css', 'color', 'rgb(255, 165, 0)')
   })
 
-  it('Tests Case 19', () => {
+  it('Tests Case 19: View & Cart Brand Products', () => {
     // 3. Click on 'Products' button
     cy.get('li').contains('Products').click()
     // 4. Verify that Brands are visible on left side bar

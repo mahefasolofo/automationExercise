@@ -11,7 +11,7 @@ const address1 = faker.address.city()
 const address2 = faker.address.city()
 const state = faker.address.state()
 const city = faker.address.cityName()
-const zipcode = faker.address.zipCode()
+const zipCode = faker.address.zipCode()
 const phoneNumber = faker.phone.number()
 describe('Test Case 23: Verify address details in checkout page', () => {
   beforeEach(() => {
@@ -21,13 +21,13 @@ describe('Test Case 23: Verify address details in checkout page', () => {
     cy.get('#slider').should('exist')
   })
 
-  it('Tests Case 23', () => {
+  it('Tests Case 23: Verify address details in checkout page', () => {
     // 4. Click 'Signup / Login' button
     cy.get('li').contains('Signup').click()
-    signupPage.fillSignup1(name, email)
+    signupPage.fillSignupForm(name, email)
     //Account informations
     cy.get('.title').should('contain', 'Enter Account Information')
-    signupPage.fillSignup2(
+    signupPage.fillSignupAccountInformation(
       password,
       name,
       lastName,
@@ -36,7 +36,7 @@ describe('Test Case 23: Verify address details in checkout page', () => {
       address2,
       state,
       city,
-      zipcode,
+      zipCode,
       phoneNumber,
     )
     // 6. Verify 'ACCOUNT CREATED!' and click 'Continue' button
@@ -67,7 +67,7 @@ describe('Test Case 23: Verify address details in checkout page', () => {
     cy.get('#address_delivery .address_city')
       .should('contain', state)
       .should('contain', city)
-      .should('contain', zipcode)
+      .should('contain', zipCode)
     cy.get('#address_delivery .address_phone').should('contain', phoneNumber)
     //address_invoice
     cy.get('#address_invoice .address_lastname')
@@ -77,7 +77,7 @@ describe('Test Case 23: Verify address details in checkout page', () => {
     cy.get('#address_invoice .address_city')
       .should('contain', state)
       .should('contain', city)
-      .should('contain', zipcode)
+      .should('contain', zipCode)
     cy.get('#address_invoice .address_phone').should('contain', phoneNumber)
     // 14. Click 'Delete Account' button
     cy.get('li').contains('Delete Account').click()

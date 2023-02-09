@@ -10,6 +10,10 @@ const selectors = {
   reviewEmail: '#email',
   reviewMessage: '#review',
   reviewButton: '#button-review',
+  subscriptionTitle: '.single-widget > h2',
+  subscriptionEmail: '#susbscribe_email',
+  subscriptionButton: '#subscribe',
+  subscriptionAlert: '#success-subscribe',
 }
 class ContactPage {
   fillContactUs(name: string, email: string, file: string) {
@@ -19,6 +23,9 @@ class ContactPage {
     cy.get(selectors.contactMessage).type(faker.lorem.paragraph())
     cy.get(selectors.contactFile).selectFile(file)
     cy.get(selectors.contactButton).click()
+    cy.get('.status').contains(
+      'Success! Your details have been submitted successfully.',
+    )
   }
 
   fillReview(name: string, email: string) {
@@ -27,6 +34,17 @@ class ContactPage {
     cy.get(selectors.reviewMessage).type(faker.lorem.paragraph())
     // 8. Click 'Submit' button
     cy.get(selectors.reviewButton).click()
+  }
+
+  fillSubscription(email: string) {
+    cy.get(selectors.subscriptionTitle)
+      .contains('Subscription')
+      .should('be.visible')
+    cy.get(selectors.subscriptionEmail).type(email)
+    cy.get(selectors.subscriptionButton).click()
+    cy.get(selectors.subscriptionAlert)
+      .contains('You have been successfully subscribed')
+      .should('be.visible')
   }
 }
 

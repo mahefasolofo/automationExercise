@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('Test Case 25: Verify Scroll Up using Arrow button and Scroll Down functionality', () => {
+describe('Test Case 26: Verify Scroll Up without "Arrow" button and Scroll Down functionality', () => {
   beforeEach(() => {
     cy.visit('https://automationexercise.com')
     cy.url().should('eq', 'https://automationexercise.com/')
@@ -8,7 +8,7 @@ describe('Test Case 25: Verify Scroll Up using Arrow button and Scroll Down func
     cy.get('#slider').should('exist')
   })
 
-  it('Tests Case 25', () => {
+  it('Test Case 26: Verify Scroll Up without "Arrow" button and Scroll Down functionality', () => {
     // 4. Scroll down page to bottom
     cy.scrollTo('bottom')
     // 5. Verify 'SUBSCRIPTION' is visible

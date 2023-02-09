@@ -7,7 +7,7 @@ describe('Test Case 17: Remove Products From Cart', () => {
     cy.get('#slider').should('be.visible')
   })
 
-  it('Tests Case 17', () => {
+  it('Tests Case 17: Remove Products From Cart', () => {
     //Add product to cart
     cy.get('.overlay-content [data-product-id="1"]').click({ force: true })
     cy.get('button:contains("Continue Shopping")').click()

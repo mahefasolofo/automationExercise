@@ -7,7 +7,7 @@ describe('Test Case 18: View Category Products', () => {
     cy.get('a').contains('Home').should('have.css', 'color', 'rgb(255, 165, 0)')
   })
 
-  it('Tests Case 18', () => {
+  it('Tests Case 18: View Category Products', () => {
     //Verify that categories are visible on left side bar
     cy.get('.left-sidebar h2:contains("Category")').should('exist')
     cy.get('#accordian .panel .panel-heading [href="#Women"]').click()

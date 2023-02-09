@@ -7,7 +7,7 @@ describe('Test Case 21: Add review on product', () => {
     cy.url().should('eq', 'https://automationexercise.com/')
   })
 
-  it('Tests Case 21', () => {
+  it('Tests Case 21: Add review on product', () => {
     // 3. Click on 'Products' button
     cy.get('li').contains('Products').click()
     // 4. Verify user is navigated to ALL PRODUCTS page successfully

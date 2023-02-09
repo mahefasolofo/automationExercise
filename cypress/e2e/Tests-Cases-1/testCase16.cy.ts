@@ -9,7 +9,7 @@ describe('Test Case 16: Place Order: Login before Checkout', () => {
     cy.get('a').contains('Home').should('have.css', 'color', 'rgb(255, 165, 0)')
   })
 
-  it('Tests Case 16', () => {
+  it('Tests Case 16: Place Order: Login before Checkout', () => {
     cy.get('li').contains('Signup').click()
     cy.get('h2').should('contain', 'Login to your account')
     loginPage.fillLoginData('john@example.com', '123456')

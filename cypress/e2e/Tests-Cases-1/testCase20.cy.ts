@@ -8,7 +8,7 @@ describe('Test Case 20: Search Products and Verify Cart After Login', () => {
     cy.get('a').contains('Home').should('have.css', 'color', 'rgb(255, 165, 0)')
   })
 
-  it('Tests Case 20', () => {
+  it('Tests Case 20: Search Products and Verify Cart After Login', () => {
     // 3. Click on 'Products' button
     cy.get('li').contains('Products').click()
     // 4. Verify user is navigated to ALL PRODUCTS page successfully

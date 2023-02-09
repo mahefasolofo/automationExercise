@@ -8,7 +8,7 @@ describe('Test Case 25: Verify Scroll Up using Arrow button and Scroll Down func
     cy.get('#slider').should('exist')
   })
 
-  it('Tests Case 25', () => {
+  it('Tests Case 25: Verify Scroll Up using Arrow button and Scroll Down functionality', () => {
     // 4. Scroll down page to bottom
     cy.scrollTo('bottom')
     // 5. Verify 'SUBSCRIPTION' is visible

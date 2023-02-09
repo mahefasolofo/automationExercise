@@ -13,18 +13,18 @@ const selectors = {
   signupCountryOption: '#country option',
   signupState: '#state',
   signupCity: '#city',
-  signupZipcode: '#zipcode',
+  signupZipCode: '#zipcode',
   signupMobile: '#mobile_number',
   signupButtonCreate: '[data-qa="create-account"]',
 }
 class SingUpPage {
-  fillSignup1(name: string, email: string) {
+  fillSignupForm(name: string, email: string) {
     cy.get(selectors.signupName).type(name)
     cy.get(selectors.signupEmail).type(email)
     cy.get(selectors.signupButton).click()
   }
 
-  fillSignup2(
+  fillSignupAccountInformation(
     password: string,
     firstName: string,
     lastName: string,
@@ -33,7 +33,7 @@ class SingUpPage {
     address2: string,
     state: string,
     city: string,
-    zipcode: string,
+    zipCode: string,
     phoneNumber: string,
   ) {
     cy.get(selectors.signupTitle).check()
@@ -50,9 +50,13 @@ class SingUpPage {
     })
     cy.get(selectors.signupState).type(state)
     cy.get(selectors.signupCity).type(city)
-    cy.get(selectors.signupZipcode).type(zipcode)
+    cy.get(selectors.signupZipCode).type(zipCode)
     cy.get(selectors.signupMobile).type(phoneNumber)
     cy.get(selectors.signupButtonCreate).click()
+    cy.get('[data-qa="account-created"]').should('contain', 'Account Created!')
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(500)
+    cy.get('[data-qa="continue-button"]').click()
   }
 }
 

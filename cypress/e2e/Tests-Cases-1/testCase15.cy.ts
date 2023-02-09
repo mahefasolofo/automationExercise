@@ -11,7 +11,7 @@ const address1 = faker.address.city()
 const address2 = faker.address.city()
 const state = faker.address.state()
 const city = faker.address.cityName()
-const zipcode = faker.address.zipCode()
+const zipCode = faker.address.zipCode()
 const phoneNumber = faker.phone.number()
 
 describe('Test Case 15: Place Order: Register before Checkout', () => {
@@ -21,14 +21,14 @@ describe('Test Case 15: Place Order: Register before Checkout', () => {
     // cy.get('a').contains('Home').should('have.css', 'color', 'rgb(255, 165, 0)')
   })
 
-  it('test case 15', () => {
+  it('test case 15: Place Order: Register before Checkout', () => {
     //Fill all details in Signup and create account
     cy.get('li').contains('Signup / Login').click()
     cy.get('h2').should('contain', 'New User Signup!')
-    signupPage.fillSignup1(name, email)
+    signupPage.fillSignupForm(name, email)
     cy.get('.title').should('contain', 'Enter Account Information')
     //
-    signupPage.fillSignup2(
+    signupPage.fillSignupAccountInformation(
       password,
       name,
       lastName,
@@ -37,7 +37,7 @@ describe('Test Case 15: Place Order: Register before Checkout', () => {
       address2,
       state,
       city,
-      zipcode,
+      zipCode,
       phoneNumber,
     )
     cy.get('[data-qa="account-created"]').should('contain', 'Account Created!')
@@ -65,7 +65,7 @@ describe('Test Case 15: Place Order: Register before Checkout', () => {
     cy.get('#address_delivery .address_city')
       .should('contain', state)
       .should('contain', city)
-      .should('contain', zipcode)
+      .should('contain', zipCode)
     cy.get('#address_delivery .address_phone').should('contain', phoneNumber)
     //address_invoice
     cy.get('#address_invoice .address_lastname')
@@ -75,7 +75,7 @@ describe('Test Case 15: Place Order: Register before Checkout', () => {
     cy.get('#address_invoice .address_city')
       .should('contain', state)
       .should('contain', city)
-      .should('contain', zipcode)
+      .should('contain', zipCode)
     cy.get('#address_invoice .address_phone').should('contain', phoneNumber)
 
     //message

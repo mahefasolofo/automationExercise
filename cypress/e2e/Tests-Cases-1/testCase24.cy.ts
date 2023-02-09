@@ -11,7 +11,7 @@ const address1 = faker.address.city()
 const address2 = faker.address.city()
 const state = faker.address.state()
 const city = faker.address.cityName()
-const zipcode = faker.address.zipCode()
+const zipCode = faker.address.zipCode()
 const phoneNumber = faker.phone.number()
 describe('Test Case 24: Download Invoice after purchase order', () => {
   beforeEach(() => {
@@ -21,7 +21,7 @@ describe('Test Case 24: Download Invoice after purchase order', () => {
     cy.get('#slider').should('exist')
   })
 
-  it('Tests Case 24', () => {
+  it('Tests Case 24: Download Invoice after purchase order', () => {
     // 4. Add products to cart
     cy.get('.overlay-content [data-product-id="1"]').click({ force: true })
     cy.get('button:contains("Continue Shopping")').click()
@@ -38,10 +38,10 @@ describe('Test Case 24: Download Invoice after purchase order', () => {
     // 8. Click 'Register / Login' button
     cy.get('u:contains("Register / Login")').click()
     // 9. Fill all details in Signup and create account
-    signupPage.fillSignup1(name, email)
+    signupPage.fillSignupForm(name, email)
     //Account informations
     cy.get('.title').should('contain', 'Enter Account Information')
-    signupPage.fillSignup2(
+    signupPage.fillSignupAccountInformation(
       password,
       name,
       lastName,
@@ -50,7 +50,7 @@ describe('Test Case 24: Download Invoice after purchase order', () => {
       address2,
       state,
       city,
-      zipcode,
+      zipCode,
       phoneNumber,
     )
     // // 10. Verify 'ACCOUNT CREATED!' and click 'Continue' button
@@ -70,7 +70,7 @@ describe('Test Case 24: Download Invoice after purchase order', () => {
     cy.get('#address_delivery .address_city')
       .should('contain', state)
       .should('contain', city)
-      .should('contain', zipcode)
+      .should('contain', zipCode)
     cy.get('#address_delivery .address_phone').should('contain', phoneNumber)
     //address_invoice
     cy.get('#address_invoice .address_lastname')
@@ -80,7 +80,7 @@ describe('Test Case 24: Download Invoice after purchase order', () => {
     cy.get('#address_invoice .address_city')
       .should('contain', state)
       .should('contain', city)
-      .should('contain', zipcode)
+      .should('contain', zipCode)
     cy.get('#address_invoice .address_phone').should('contain', phoneNumber)
     cy.get('[name="message"]').type('Checked OK to Place order')
     cy.get('a').contains('Place Order').click()

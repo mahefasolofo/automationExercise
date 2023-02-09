@@ -1,7 +1,9 @@
 /// <reference types="cypress" />
 const { faker } = require('@faker-js/faker')
 import SingUpPage from '../pageObject/signupPage'
+import NavbarPage from '../pageObject/navbarPage'
 const signupPage = new SingUpPage()
+const navbarPage = new NavbarPage()
 const name = faker.name.firstName()
 const email = faker.internet.email()
 const password = faker.internet.password()
@@ -11,19 +13,19 @@ const address1 = faker.address.city()
 const address2 = faker.address.city()
 const state = faker.address.state()
 const city = faker.address.cityName()
-const zipcode = faker.address.zipCode()
+const zipCode = faker.address.zipCode()
 const phoneNumber = faker.phone.number()
-describe('Test Case 1', () => {
-  it('Test Case 1', () => {
+describe('Test Case 1: Register User', () => {
+  it('Test Case 1:Register User', () => {
     cy.visit('https://automationexercise.com')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get('#slider').should('be.visible')
-    cy.get('[href="/login"]').click()
+    navbarPage.goToSignup()
     cy.get('.signup-form > h2').contains('New User Signup!')
-    signupPage.fillSignup1(name, email)
+    signupPage.fillSignupForm(name, email)
     //Account informations
     cy.get('.title').should('contain', 'Enter Account Information')
-    signupPage.fillSignup2(
+    signupPage.fillSignupAccountInformation(
       password,
       name,
       lastName,
@@ -32,14 +34,14 @@ describe('Test Case 1', () => {
       address2,
       state,
       city,
-      zipcode,
+      zipCode,
       phoneNumber,
     )
-    cy.get('[data-qa="account-created"]').should('contain', 'Account Created!')
-    cy.get('[data-qa="continue-button"]').click()
-    cy.get('.navbar-nav').should('contain', 'Logged in as ', name)
-    cy.get('li').contains('Delete Account').click()
-    cy.get('[data-qa="account-deleted"]').should('contain', 'Account Deleted!')
-    cy.get('[data-qa="continue-button"]').click()
+    //verification
+    cy.get('.navbar-nav').should('contain', 'Logged in as ' + name)
+    // Delete account
+    navbarPage.goToDelete()
+    cy.window().scrollTo('top')
+    cy.get('#slider').should('be.visible')
   })
 })

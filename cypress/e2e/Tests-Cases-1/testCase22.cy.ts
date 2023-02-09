@@ -6,7 +6,7 @@ describe('Test Case 22: Add to cart from Recommended items', () => {
     cy.url().should('eq', 'https://automationexercise.com/')
   })
 
-  it('Tests Case 22', () => {
+  it('Tests Case 22: Add to cart from Recommended items', () => {
     // 3. Scroll to the bottom of page
     cy.scrollTo('bottom')
     // 4. Verify 'RECOMMENDED ITEMS' are visible

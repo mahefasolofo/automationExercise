@@ -8,7 +8,7 @@
       "street": "Kulas Light",
       "suite": "Apt. 556",
       "city": "Gwenborough",
-      "zipcode": "92998-3874",
+      "zipCode": "92998-3874",
       "geo": {
         "lat": "-37.3159",
         "lng": "81.1496"
@@ -31,7 +31,7 @@
       "street": "Victor Plains",
       "suite": "Suite 879",
       "city": "Wisokyburgh",
-      "zipcode": "90566-7771",
+      "zipCode": "90566-7771",
       "geo": {
         "lat": "-43.9509",
         "lng": "-34.4618"
@@ -54,7 +54,7 @@
       "street": "Douglas Extension",
       "suite": "Suite 847",
       "city": "McKenziehaven",
-      "zipcode": "59590-4157",
+      "zipCode": "59590-4157",
       "geo": {
         "lat": "-68.6102",
         "lng": "-47.0653"
@@ -77,7 +77,7 @@
       "street": "Hoeger Mall",
       "suite": "Apt. 692",
       "city": "South Elvis",
-      "zipcode": "53919-4257",
+      "zipCode": "53919-4257",
       "geo": {
         "lat": "29.4572",
         "lng": "-164.2990"
@@ -100,7 +100,7 @@
       "street": "Skiles Walks",
       "suite": "Suite 351",
       "city": "Roscoeview",
-      "zipcode": "33263",
+      "zipCode": "33263",
       "geo": {
         "lat": "-31.8129",
         "lng": "62.5342"
@@ -123,7 +123,7 @@
       "street": "Norberto Crossing",
       "suite": "Apt. 950",
       "city": "South Christy",
-      "zipcode": "23505-1337",
+      "zipCode": "23505-1337",
       "geo": {
         "lat": "-71.4197",
         "lng": "71.7478"
@@ -146,7 +146,7 @@
       "street": "Rex Trail",
       "suite": "Suite 280",
       "city": "Howemouth",
-      "zipcode": "58804-1099",
+      "zipCode": "58804-1099",
       "geo": {
         "lat": "24.8918",
         "lng": "21.8984"
@@ -169,7 +169,7 @@
       "street": "Ellsworth Summit",
       "suite": "Suite 729",
       "city": "Aliyaview",
-      "zipcode": "45169",
+      "zipCode": "45169",
       "geo": {
         "lat": "-14.3990",
         "lng": "-120.7677"
@@ -192,7 +192,7 @@
       "street": "Dayna Park",
       "suite": "Suite 449",
       "city": "Bartholomebury",
-      "zipcode": "76495-3109",
+      "zipCode": "76495-3109",
       "geo": {
         "lat": "24.6463",
         "lng": "-168.8889"
@@ -215,7 +215,7 @@
       "street": "Kattie Turnpike",
       "suite": "Suite 198",
       "city": "Lebsackbury",
-      "zipcode": "31428-2261",
+      "zipCode": "31428-2261",
       "geo": {
         "lat": "-38.2386",
         "lng": "57.2232"
