@@ -131,8 +131,6 @@ describe('Test Case 24: Download Invoice after purchase order', () => {
     //18. Verify success message 'Your order has been placed successfully!'
   })
   afterEach(() => {
-    //Delete account
-    navbarPage.goToLogout()
-    cy.get('.login-form').should('be.visible')
+    cy.deleteUser(email, password)
   })
 })
