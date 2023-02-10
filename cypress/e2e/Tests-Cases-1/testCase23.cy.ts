@@ -105,8 +105,6 @@ describe('Test Case 23: Verify address details in checkout page', () => {
     )
   })
   afterEach(() => {
-    navbarPage.goToDelete()
-    cy.window().scrollTo('top')
-    cy.get('#slider').should('be.visible')
+    cy.deleteUser(email, password)
   })
 })
