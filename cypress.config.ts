@@ -7,6 +7,7 @@ export default defineConfig({
     overwrite: false,
     html: false,
     json: true,
+    pageLoadTimeout: 12000,
   },
 
   e2e: {
