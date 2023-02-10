@@ -145,5 +145,6 @@ describe('Test Case 20: Search Products and Verify Cart After Login', () => {
   })
   afterEach(() => {
     cy.deleteUser(email, password)
+    navbarPage.goToHome()
   })
 })

@@ -54,7 +54,6 @@ describe('Test Case 23: Verify address details in checkout page', () => {
   it('Tests Case 23: Verify address details in checkout page', () => {
     // 4. Click 'Signup / Login' button
     navbarPage.goToSignup()
-
     signupPage.fillSignupForm(name, email)
     cy.get('.title').should('contain', 'Enter Account Information')
     signupPage.fillSignupAccountInformation(
