@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
-const { faker } = require('@faker-js/faker')
 import SingUpPage from '../pageObject/signupPage'
+const signupPage = new SingUpPage()
 import AddProductPage from '../pageObject/addProductPage'
 const addProductPage = new AddProductPage()
 import VerificationPage from '../pageObject/verificationPage'
@@ -8,19 +8,25 @@ const verificationPage = new VerificationPage()
 import NavbarPage from '../pageObject/navbarPage'
 const navbarPage = new NavbarPage()
 
-let title = 'Mr.'
-const signupPage = new SingUpPage()
-const name = faker.name.firstName()
-const email = faker.internet.email()
-const password = faker.internet.password()
-const lastName = faker.name.lastName()
-const companyName = faker.company.companyName()
-const address1 = faker.address.city()
-const address2 = faker.address.city()
-const state = faker.address.state()
-const city = faker.address.cityName()
-const zipCode = faker.address.zipCode()
-const phoneNumber = faker.phone.number()
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+const randomUserNumber = getRandomInt(0, 19)
+let randomRadioButton: string
+let gender: string
+let name: string
+let email: string
+let password: string
+let lastName: string
+let companyName: string
+let address1: string
+let address2: string
+let country: string
+let state: string
+let city: string
+let zipCode: string
+let phoneNumber: string
+
 describe('Test Case 23: Verify address details in checkout page', () => {
   beforeEach(() => {
     cy.visit('https://automationexercise.com')
@@ -31,54 +37,71 @@ describe('Test Case 23: Verify address details in checkout page', () => {
 
   it('Tests Case 23: Verify address details in checkout page', () => {
     // 4. Click 'Signup / Login' button
-    cy.get('li').contains('Signup').click()
-    signupPage.fillSignupForm(name, email)
-    //Account informations
-    cy.get('.title').should('contain', 'Enter Account Information')
-    signupPage.fillSignupAccountInformation(
-      password,
-      name,
-      lastName,
-      companyName,
-      address1,
-      address2,
-      state,
-      city,
-      zipCode,
-      phoneNumber,
-    )
-    // 7. Verify ' Logged in as username' at top
-    cy.get('.navbar-nav').should('contain', 'Logged in as ', name)
+    navbarPage.goToSignup()
+    cy.fixture('data.json').then((item) => {
+      ;(randomRadioButton = item[randomUserNumber].gender[0]),
+        (gender = item[randomUserNumber].gender[1]),
+        (name = item[randomUserNumber].name),
+        (email = item[randomUserNumber].email),
+        (password = item[randomUserNumber].password),
+        (lastName = item[randomUserNumber].lastName),
+        (companyName = item[randomUserNumber].companyName),
+        (address1 = item[randomUserNumber].address1),
+        (address2 = item[randomUserNumber].address2),
+        (country = item[randomUserNumber].country),
+        (state = item[randomUserNumber].state),
+        (city = item[randomUserNumber].city),
+        (zipCode = item[randomUserNumber].zipCode),
+        (phoneNumber = item[randomUserNumber].phoneNumber),
+        signupPage.fillSignupForm(name, email)
+      cy.get('.title').should('contain', 'Enter Account Information')
+      signupPage.fillSignupAccountInformation(
+        randomRadioButton,
+        password,
+        name,
+        lastName,
+        companyName,
+        address1,
+        address2,
+        country,
+        state,
+        city,
+        zipCode,
+        phoneNumber,
+      )
+      //verification
+      cy.get('.navbar-nav').should('contain', 'Logged in as ' + name)
 
-    // 8. Add products to cart
-    addProductPage.addRandomProduct()
-    // 9. Click 'Cart' button
-    cy.get('li').contains('Cart').click()
-    // 10. Verify that cart page is displayed
-    cy.get('.active:contains("Shopping Cart")').should('be.visible')
-    // 11. Click Proceed To Checkout
-    cy.get('.btn:contains("Proceed To Checkout")').click()
-    // 12. Verify that the delivery address is same address filled at the time registration of account
-    //address_delivery
-    verificationPage.addressDelivery(
-      title,
-      name,
-      lastName,
-      state,
-      city,
-      zipCode,
-      phoneNumber,
-    )
-    //address_invoice
-    verificationPage.addressBilling(
-      title,
-      name,
-      lastName,
-      state,
-      city,
-      zipCode,
-      phoneNumber,
-    )
+      // 8. Add products to cart
+      addProductPage.addRandomProduct()
+      // 9. Click 'Cart' button
+      navbarPage.goToCart()
+      // 10. Verify that cart page is displayed
+      cy.get('.active:contains("Shopping Cart")').should('be.visible')
+      // 11. Click Proceed To Checkout
+      cy.get('.btn:contains("Proceed To Checkout")').click()
+      // 12. Verify that the delivery address is same address filled at the time registration of account
+      //address_delivery
+      verificationPage.addressDelivery(
+        gender,
+        name,
+        lastName,
+        state,
+        city,
+        zipCode,
+        phoneNumber,
+      )
+      //address_invoice
+      verificationPage.addressBilling(
+        gender,
+        name,
+        lastName,
+        state,
+        city,
+        zipCode,
+        phoneNumber,
+      )
+    })
   })
   afterEach(() => {
     navbarPage.goToDelete()

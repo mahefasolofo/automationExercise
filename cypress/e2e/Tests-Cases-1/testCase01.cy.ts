@@ -4,17 +4,25 @@ import SingUpPage from '../pageObject/signupPage'
 import NavbarPage from '../pageObject/navbarPage'
 const signupPage = new SingUpPage()
 const navbarPage = new NavbarPage()
-const name = faker.name.firstName()
-const email = faker.internet.email()
-const password = faker.internet.password()
-const lastName = faker.name.lastName()
-const companyName = faker.company.companyName()
-const address1 = faker.address.city()
-const address2 = faker.address.city()
-const state = faker.address.state()
-const city = faker.address.cityName()
-const zipCode = faker.address.zipCode()
+
 const phoneNumber = faker.phone.number()
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+const randomUserNumber = getRandomInt(0, 19)
+let randomRadioButton: string
+let name: string
+let email: string
+let password: string
+let lastName: string
+let companyName: string
+let address1: string
+let address2: string
+let country: string
+let state: string
+let city: string
+let zipCode: string
+
 describe('Test Case 1: Register User', () => {
   it('Test Case 1:Register User', () => {
     cy.visit('https://automationexercise.com')
@@ -22,23 +30,41 @@ describe('Test Case 1: Register User', () => {
     cy.get('#slider').should('be.visible')
     navbarPage.goToSignup()
     cy.get('.signup-form > h2').contains('New User Signup!')
-    signupPage.fillSignupForm(name, email)
-    //Account informations
-    cy.get('.title').should('contain', 'Enter Account Information')
-    signupPage.fillSignupAccountInformation(
-      password,
-      name,
-      lastName,
-      companyName,
-      address1,
-      address2,
-      state,
-      city,
-      zipCode,
-      phoneNumber,
-    )
-    //verification
-    cy.get('.navbar-nav').should('contain', 'Logged in as ' + name)
+
+    cy.fixture('data.json').then((item) => {
+      ;(randomRadioButton = item[randomUserNumber].gender[0]),
+        (name = item[randomUserNumber].name),
+        (email = item[randomUserNumber].email),
+        (password = item[randomUserNumber].password),
+        (lastName = item[randomUserNumber].lastName),
+        (companyName = item[randomUserNumber].companyName),
+        (address1 = item[randomUserNumber].address1),
+        (address2 = item[randomUserNumber].address2),
+        (country = item[randomUserNumber].country),
+        (state = item[randomUserNumber].state),
+        (city = item[randomUserNumber].city),
+        (zipCode = item[randomUserNumber].zipCode),
+        console.log(country)
+      signupPage.fillSignupForm(name, email)
+      cy.get('.title').should('contain', 'Enter Account Information')
+      signupPage.fillSignupAccountInformation(
+        randomRadioButton,
+        password,
+        name,
+        lastName,
+        companyName,
+        address1,
+        address2,
+        country,
+        state,
+        city,
+        zipCode,
+        phoneNumber,
+      )
+      //verification
+      cy.get('.navbar-nav').should('contain', 'Logged in as ' + name)
+    })
+
     // Delete account
     navbarPage.goToDelete()
     cy.window().scrollTo('top')

@@ -10,7 +10,6 @@ const selectors = {
   signupAddress1: '#address1',
   signupAddress2: '#address2',
   signupCountry: '#country',
-  signupCountryOption: '#country option',
   signupState: '#state',
   signupCity: '#city',
   signupZipCode: '#zipcode',
@@ -25,29 +24,28 @@ class SingUpPage {
   }
 
   fillSignupAccountInformation(
+    randomRadioButton: string,
     password: string,
     firstName: string,
     lastName: string,
     companyName: string,
     address1: string,
     address2: string,
+    country: string,
     state: string,
     city: string,
     zipCode: string,
     phoneNumber: string,
   ) {
-    cy.get(selectors.signupTitle).check()
+    // cy.get(selectors.signupTitle).check()
+    cy.get(randomRadioButton).check()
     cy.get(selectors.signupPassword).type(password)
     cy.get(selectors.signupFirstName).type(firstName)
     cy.get(selectors.signupLastName).type(lastName)
     cy.get(selectors.signupCompany).type(companyName)
     cy.get(selectors.signupAddress1).type(address1)
     cy.get(selectors.signupAddress2).type(address2)
-    cy.get('#country option').then((options) => {
-      const randomIndex = Math.floor(Math.random() * options.length)
-      const randomOption = options.eq(randomIndex).text()
-      cy.get('#country').select(randomOption)
-    })
+    cy.get(selectors.signupCountry).select(country)
     cy.get(selectors.signupState).type(state)
     cy.get(selectors.signupCity).type(city)
     cy.get(selectors.signupZipCode).type(zipCode)
