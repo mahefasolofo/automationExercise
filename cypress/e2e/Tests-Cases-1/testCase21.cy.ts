@@ -4,16 +4,18 @@ const contactPage = new ContactPage()
 import NavbarPage from '../pageObject/navbarPage'
 const navbarPage = new NavbarPage()
 
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+const randomUserNumber = getRandomInt(0, 19)
 let email
 let name
 describe('Test Case 21: Add review on product', () => {
   beforeEach(() => {
-    cy.fixture('userDefault.json')
-      .its('users')
-      .then((item) => {
-        email = item[0].email
-        name = item[0].name
-      })
+    cy.fixture('data.json').then((item) => {
+      email = item[randomUserNumber].email
+      name = item[randomUserNumber].name
+    })
     cy.visit('https://automationexercise.com')
     cy.url().should('eq', 'https://automationexercise.com/')
   })

@@ -15,8 +15,8 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 const randomUserNumber = getRandomInt(0, 19)
+let title: string
 let randomRadioButton: string
-let gender: string
 let name: string
 let email: string
 let password: string
@@ -35,18 +35,9 @@ let cardMonth: string
 let cardYear: string
 describe('Test Case 15: Place Order: Register before Checkout', () => {
   beforeEach(() => {
-    cy.visit('https://automationexercise.com')
-    cy.url().should('eq', 'https://automationexercise.com/')
-    cy.get('#slider').should('be.visible')
-  })
-
-  it('test case 15: Place Order: Register before Checkout', () => {
-    //Fill all details in Signup and create account
-    navbarPage.goToSignup()
-    cy.get('h2').should('contain', 'New User Signup!')
     cy.fixture('data.json').then((item) => {
-      ;(randomRadioButton = item[randomUserNumber].gender[0]),
-        (gender = item[randomUserNumber].gender[1]),
+      ;(title = item[randomUserNumber].gender[1]),
+        (randomRadioButton = item[randomUserNumber].gender[0]),
         (name = item[randomUserNumber].name),
         (email = item[randomUserNumber].email),
         (password = item[randomUserNumber].password),
@@ -62,70 +53,81 @@ describe('Test Case 15: Place Order: Register before Checkout', () => {
         (cardNumber = item[randomUserNumber].cardNumber),
         (cvc = item[randomUserNumber].cvc),
         (cardMonth = item[randomUserNumber].cardMonth),
-        (cardYear = item[randomUserNumber].cardYear),
-        signupPage.fillSignupForm(name, email)
-      cy.get('.title').should('contain', 'Enter Account Information')
-      //
-      signupPage.fillSignupAccountInformation(
-        randomRadioButton,
-        password,
-        name,
-        lastName,
-        companyName,
-        address1,
-        address2,
-        country,
-        state,
-        city,
-        zipCode,
-        phoneNumber,
-      )
-      cy.get('.navbar-nav').should('contain', 'Logged in as ', name)
-      //Add product to cart
-      addProductPage.addRandomProduct()
-
-      //Click cart button
-      navbarPage.goToCart()
-
-      //Proceed to checkout
-      cy.get('.btn:contains("Proceed To Checkout")').click()
-
-      verificationPage.addressBilling(
-        gender,
-        name,
-        lastName,
-        state,
-        city,
-        zipCode,
-        phoneNumber,
-      )
-      //address_invoice
-      verificationPage.addressBilling(
-        gender,
-        name,
-        lastName,
-        state,
-        city,
-        zipCode,
-        phoneNumber,
-      )
-      //message
-      cy.get('[name="message"]').type('Checked OK to Place order')
-      cy.get('a').contains('Place Order').click()
-      paymentPage.fillPaymentForm(
-        name,
-        lastName,
-        cardNumber,
-        cvc,
-        cardMonth,
-        cardYear,
-      )
+        (cardYear = item[randomUserNumber].cardYear)
     })
+    cy.visit('https://automationexercise.com')
+    cy.url().should('eq', 'https://automationexercise.com/')
+    cy.get('#slider').should('be.visible')
+  })
+
+  it('test case 15: Place Order: Register before Checkout', () => {
+    //Fill all details in Signup and create account
+    navbarPage.goToSignup()
+    cy.get('h2').should('contain', 'New User Signup!')
+
+    signupPage.fillSignupForm(name, email)
+    cy.get('.title').should('contain', 'Enter Account Information')
+    //
+    signupPage.fillSignupAccountInformation(
+      randomRadioButton,
+      password,
+      name,
+      lastName,
+      companyName,
+      address1,
+      address2,
+      country,
+      state,
+      city,
+      zipCode,
+      phoneNumber,
+    )
+    cy.get('.navbar-nav').should('contain', 'Logged in as ', name)
+    //Add product to cart
+    addProductPage.addRandomProduct()
+
+    //Click cart button
+    navbarPage.goToCart()
+
+    //Proceed to checkout
+    cy.get('.btn:contains("Proceed To Checkout")').click()
+
+    verificationPage.addressBilling(
+      title,
+      name,
+      lastName,
+      state,
+      city,
+      zipCode,
+      phoneNumber,
+    )
+    //address_invoice
+    verificationPage.addressBilling(
+      title,
+      name,
+      lastName,
+      state,
+      city,
+      zipCode,
+      phoneNumber,
+    )
+    //message
+    cy.get('[name="message"]').type('Checked OK to Place order')
+    cy.get('a').contains('Place Order').click()
+    paymentPage.fillPaymentForm(
+      name,
+      lastName,
+      cardNumber,
+      cvc,
+      cardMonth,
+      cardYear,
+    )
   })
   afterEach(() => {
     //Delete account
-    navbarPage.goToDelete()
+    cy.deleteUser(email, password)
+    navbarPage.goToHome()
     cy.window().scrollTo('top')
-    cy.get('#slider').should('be.visible')
+    cy.get('.navbar-nav [href="/login"]').should('be.visible')
   })
 })

@@ -11,7 +11,7 @@ describe('Test Case 13: Verify Product quantity in Cart', () => {
     cy.url().should('eq', 'https://automationexercise.com/product_details/1')
     cy.get('input[name="quantity"]').clear().type('4')
     cy.get('button').contains('Add to cart').click()
-    cy.get('a').contains('View Cart').click() //TODO : change locator
+    cy.get('a').contains('View Cart').click()
     cy.get('#product-1').should('be.visible')
     cy.get('#product-1 .cart_quantity .disabled')
       .contains('4')

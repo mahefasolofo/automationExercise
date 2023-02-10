@@ -1,7 +1,7 @@
 const selectors = {
   navHome: '.navbar-nav [href="/"]',
   navProduct: '.navbar-nav [href="/products"]',
-  navCart: '.navbar-nav [href="/view_cart"]:first',
+  navCart: '.navbar-nav [href="/view_cart"]',
   navSignup: '.navbar-nav [href="/login"]',
   navTestCases: '.navbar-nav [href="/test_cases"]',
   navAPITesting: '.navbar-nav [href="/api_list"]',

@@ -6,9 +6,9 @@ const navbarPage = new NavbarPage()
 import SingUpPage from '../pageObject/signupPage'
 const signUpPage = new SingUpPage()
 
-let emailUser
-let nameUser
-let passwordUser
+// let emailUser
+// let nameUser
+// let passwordUser
 let emailUserError
 let passwordUserError
 function getRandomInt(min, max) {
@@ -51,49 +51,39 @@ describe('Test Cases Login Logout Signup with error', () => {
         (city = item[randomUserNumber].city),
         (zipCode = item[randomUserNumber].zipCode),
         (phoneNumber = item[randomUserNumber].phoneNumber),
-        cy.request({
-          method: 'POST',
-          url: 'https://automationexercise.com/api/createAccount',
-          form: true,
-          body: {
-            name: name,
-            email: email,
-            password: password,
-            title: title,
-            birth_date: birth_date,
-            birth_month: birth_month,
-            birth_year: birth_year,
-            firstname: name,
-            lastname: lastName,
-            company: companyName,
-            address1: address1,
-            address2: address2,
-            country: country,
-            zipcode: zipCode,
-            state: state,
-            city: city,
-            mobile_number: phoneNumber,
-          },
-        })
+        (emailUserError = item[randomUserNumber + 1].email),
+        (passwordUserError = item[randomUserNumber + 1].password)
+
+      cy.createUser(
+        name,
+        email,
+        password,
+        title,
+        birth_date,
+        birth_month,
+        birth_year,
+        lastName,
+        companyName,
+        address1,
+        address2,
+        country,
+        zipCode,
+        state,
+        city,
+        phoneNumber,
+      )
+      //chargement de fixtures
+      cy.visit('https://automationexercise.com')
+      cy.url().should('eq', 'https://automationexercise.com/')
+      cy.get('#slider').should('be.visible')
+      navbarPage.goToSignup()
     })
-    //chargement de fixtures
-    cy.fixture('data.json').then((item) => {
-      emailUser = item[randomUserNumber].email
-      nameUser = item[randomUserNumber].name
-      passwordUser = item[randomUserNumber].password
-      emailUserError = item[randomUserNumber + 1].email
-      passwordUserError = item[randomUserNumber + 1].password
-    })
-    cy.visit('https://automationexercise.com')
-    cy.url().should('eq', 'https://automationexercise.com/')
-    cy.get('#slider').should('be.visible')
-    navbarPage.goToSignup()
   })
 
   it('Tests Case 2 : Login User with correct email and password', () => {
     cy.get('.login-form > h2').should('contain', 'Login to your account')
-    loginPage.fillLoginData(emailUser, passwordUser)
-    cy.get('.navbar-nav').should('contain', 'Logged in as ' + nameUser)
+    loginPage.fillLoginData(email, password)
+    cy.get('.navbar-nav').should('contain', 'Logged in as ' + name)
     navbarPage.goToDelete()
   })
 
@@ -107,22 +97,17 @@ describe('Test Cases Login Logout Signup with error', () => {
 
   it('Test case 4 : Logout User', () => {
     cy.get('.login-form > h2').should('contain', 'Login to your account')
-    loginPage.fillLoginData(emailUser, passwordUser)
-    cy.get('.navbar-nav').should('contain', 'Logged in as ' + nameUser)
+    loginPage.fillLoginData(email, password)
+    cy.get('.navbar-nav').should('contain', 'Logged in as ' + name)
     navbarPage.goToLogout
   })
 
   it('Test case 5 : Register User with existing email', () => {
     cy.get('.signup-form > h2').should('contain', 'New User Signup!')
-    signUpPage.fillSignupForm(nameUser, emailUser)
+    signUpPage.fillSignupForm(name, email)
     cy.get('.signup-form > form > p').contains('Email Address already exist!')
   })
   afterEach(() => {
-    cy.request({
-      method: 'DELETE',
-      url: 'https://automationexercise.com/api/deleteAccount',
-      form: true,
-      body: { email: email, password: password },
-    })
+    cy.deleteUser(email, password)
   })
 })

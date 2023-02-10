@@ -6,11 +6,9 @@ const navbarPage = new NavbarPage()
 let emailUser
 describe('Test Case 10 11: Subscription', () => {
   beforeEach(() => {
-    cy.fixture('userDefault.json')
-      .its('users')
-      .then((item) => {
-        emailUser = item[0].email
-      })
+    cy.fixture('data.json').then((item) => {
+      emailUser = item[0].email
+    })
     cy.visit('https://automationexercise.com')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get('#slider').should('be.visible')
