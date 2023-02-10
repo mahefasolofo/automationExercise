@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import NavbarPage from '../pageObject/navbarPage'
 const navbarPage = new NavbarPage()
-describe('Test Case 13', () => {
+describe('Test Case 13: Verify Product quantity in Cart', () => {
   it('Test Case 13: Verify Product quantity in Cart', () => {
     cy.visit('https://automationexercise.com')
     cy.url().should('eq', 'https://automationexercise.com/')

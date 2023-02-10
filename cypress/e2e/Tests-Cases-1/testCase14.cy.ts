@@ -39,7 +39,7 @@ describe('Test Case 14: Place Order: Register while Checkout', () => {
     cy.get('#slider').should('be.visible')
   })
 
-  it('test case 14', () => {
+  it('test case 14: Place Order: Register while Checkout', () => {
     //Add product to cart
     addProductPage.addRandomProduct()
     navbarPage.goToCart()

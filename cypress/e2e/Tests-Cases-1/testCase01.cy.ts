@@ -24,13 +24,7 @@ let city: string
 let zipCode: string
 
 describe('Test Case 1: Register User', () => {
-  it('Test Case 1:Register User', () => {
-    cy.visit('https://automationexercise.com')
-    cy.url().should('eq', 'https://automationexercise.com/')
-    cy.get('#slider').should('be.visible')
-    navbarPage.goToSignup()
-    cy.get('.signup-form > h2').contains('New User Signup!')
-
+  beforeEach(() => {
     cy.fixture('data.json').then((item) => {
       ;(randomRadioButton = item[randomUserNumber].gender[0]),
         (name = item[randomUserNumber].name),
@@ -43,30 +37,37 @@ describe('Test Case 1: Register User', () => {
         (country = item[randomUserNumber].country),
         (state = item[randomUserNumber].state),
         (city = item[randomUserNumber].city),
-        (zipCode = item[randomUserNumber].zipCode),
-        console.log(country)
-      signupPage.fillSignupForm(name, email)
-      cy.get('.title').should('contain', 'Enter Account Information')
-      signupPage.fillSignupAccountInformation(
-        randomRadioButton,
-        password,
-        name,
-        lastName,
-        companyName,
-        address1,
-        address2,
-        country,
-        state,
-        city,
-        zipCode,
-        phoneNumber,
-      )
-      //verification
-      cy.get('.navbar-nav').should('contain', 'Logged in as ' + name)
+        (zipCode = item[randomUserNumber].zipCode)
     })
+  })
+  it('Test Case 1:Register User', () => {
+    cy.visit('https://automationexercise.com')
+    cy.url().should('eq', 'https://automationexercise.com/')
+    cy.get('#slider').should('be.visible')
+    navbarPage.goToSignup()
+    cy.get('.signup-form > h2').contains('New User Signup!')
+    signupPage.fillSignupForm(name, email)
+    cy.get('.title').should('contain', 'Enter Account Information')
+    signupPage.fillSignupAccountInformation(
+      randomRadioButton,
+      password,
+      name,
+      lastName,
+      companyName,
+      address1,
+      address2,
+      country,
+      state,
+      city,
+      zipCode,
+      phoneNumber,
+    )
+    //verification
+    cy.get('.navbar-nav').should('contain', 'Logged in as ' + name)
 
-    // Delete account
-    navbarPage.goToDelete()
+    // API Delete account
+    cy.deleteUser(email, password)
+    navbarPage.goToHome()
     cy.window().scrollTo('top')
     cy.get('#slider').should('be.visible')
   })
