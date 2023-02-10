@@ -1,103 +1,131 @@
 ///<reference types="cypress" />
+import SingUpPage from '../pageObject/signupPage'
+const signupPage = new SingUpPage()
+import NavbarPage from '../pageObject/navbarPage'
+const navbarPage = new NavbarPage()
+import VerificationPage from '../pageObject/verificationPage'
+const verificationPage = new VerificationPage()
+import PaymentPage from '../pageObject/payementPage'
+const paymentPage = new PaymentPage()
+import AddProductPage from '../pageObject/addProductPage'
+const addProductPage = new AddProductPage()
 
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+const randomUserNumber = getRandomInt(0, 19)
+let randomRadioButton: string
+let gender: string
+let name: string
+let email: string
+let password: string
+let lastName: string
+let companyName: string
+let address1: string
+let address2: string
+let country: string
+let state: string
+let city: string
+let zipCode: string
+let phoneNumber: string
+let cardNumber: string
+let cvc: string
+let cardMonth: string
+let cardYear: string
 describe('Test Case 14: Place Order: Register while Checkout', () => {
   beforeEach(() => {
     cy.visit('https://automationexercise.com')
     cy.url().should('eq', 'https://automationexercise.com/')
-    // cy.get('a').contains('Home').should('have.css', 'color', 'rgb(255, 165, 0)')
+    cy.get('#slider').should('be.visible')
   })
 
   it('test case 14', () => {
     //Add product to cart
-    cy.get('.overlay-content [data-product-id="1"]').click({ force: true })
-    cy.get('button:contains("Continue Shopping")').click()
-    cy.get('.overlay-content [data-product-id="2"]').click({ force: true })
-    cy.get('button:contains("Continue Shopping")').click()
-    cy.get('.overlay-content [data-product-id="3"]').click({ force: true })
-    cy.get('button:contains("Continue Shopping")').click()
-    cy.get('li').contains('Cart').click()
+    addProductPage.addRandomProduct()
+    navbarPage.goToCart()
     //verify that cart page is displayed
-    cy.get('.active:contains("Shopping Cart")').should('exist')
+    cy.get('.active:contains("Shopping Cart")').should('be.visible')
     //Proceed to checkout
     cy.get('.btn:contains("Proceed To Checkout")').click()
     // Click 'Register / Login' button
     cy.get('a').contains('Register / Login').click()
     //Fill all details in Signup and create account
-    cy.get('h2').should('contain', 'New User Signup!')
-    cy.get('[data-qa="signup-name"]').type('rick')
-    cy.get('[data-qa="signup-email"]').type('rick@example.com')
-    cy.get('[data-qa="signup-button"]').click()
-    cy.get('.title').should('contain', 'Enter Account Information')
-    cy.get('input[name="title"][value="Mr"]').check()
-    cy.get('#password').type('123456')
-    cy.get('#first_name').type('Ulrick')
-    cy.get('#last_name').type('rick')
-    cy.get('#company').type('Independant Inc.')
-    cy.get('#address1').type('2nd Rd trendart')
-    cy.get('#address2').type('nothing')
-    cy.get('#country').select('India')
-    cy.get('#state').type('Mumbay')
-    cy.get('#city').type('Mumbay')
-    cy.get('#zipcode').type('254')
-    cy.get('#mobile_number').type('555555555')
-    cy.get('[data-qa="create-account"]').click()
-    cy.get('[data-qa="account-created"]').should('contain', 'Account Created!')
-    cy.get('[data-qa="continue-button"]').click()
-    cy.get('.navbar-nav').should('contain', 'Logged in as rick')
-    cy.get('li').contains('Cart').click()
-    //Proceed to checkout
-    cy.get('.btn:contains("Proceed To Checkout")').click()
-    //Address Details
-    //address_delivery
-    cy.get('#address_delivery .address_lastname').should(
-      'contain',
-      'Mr. Ulrick rick',
-    )
-    cy.get('#address_delivery .address_address1 ').should(
-      'contain',
-      '2nd Rd trendart',
-    )
-    cy.get('#address_delivery .address_city').should('contain', 'Mumbay Mumbay')
-    cy.get('#address_delivery .address_country_name').should('contain', 'India')
-    cy.get('#address_delivery .address_phone').should('contain', '555555555')
+    cy.fixture('data.json').then((item) => {
+      ;(randomRadioButton = item[randomUserNumber].gender[0]),
+        (gender = item[randomUserNumber].gender[1]),
+        (name = item[randomUserNumber].name),
+        (email = item[randomUserNumber].email),
+        (password = item[randomUserNumber].password),
+        (lastName = item[randomUserNumber].lastName),
+        (companyName = item[randomUserNumber].companyName),
+        (address1 = item[randomUserNumber].address1),
+        (address2 = item[randomUserNumber].address2),
+        (country = item[randomUserNumber].country),
+        (state = item[randomUserNumber].state),
+        (city = item[randomUserNumber].city),
+        (zipCode = item[randomUserNumber].zipCode),
+        (phoneNumber = item[randomUserNumber].phoneNumber),
+        (cardNumber = item[randomUserNumber].cardNumber),
+        (cvc = item[randomUserNumber].cvc),
+        (cardMonth = item[randomUserNumber].cardMonth),
+        (cardYear = item[randomUserNumber].cardYear),
+        signupPage.fillSignupForm(name, email)
+      cy.get('.title').should('contain', 'Enter Account Information')
+      signupPage.fillSignupAccountInformation(
+        randomRadioButton,
+        password,
+        name,
+        lastName,
+        companyName,
+        address1,
+        address2,
+        country,
+        state,
+        city,
+        zipCode,
+        phoneNumber,
+      )
+      //verification
+      cy.get('.navbar-nav').should('contain', 'Logged in as ' + name)
+      navbarPage.goToCart()
+      //Proceed to checkout
+      cy.get('.btn:contains("Proceed To Checkout")').click()
+      verificationPage.addressDelivery(
+        gender,
+        name,
+        lastName,
+        state,
+        city,
+        zipCode,
+        phoneNumber,
+      )
 
-    //address_invoice
-    cy.get('#address_invoice .address_lastname').should(
-      'contain',
-      'Mr. Ulrick rick',
-    )
-    cy.get('#address_invoice .address_address1 ').should(
-      'contain',
-      '2nd Rd trendart',
-    )
-    cy.get('#address_invoice .address_city').should('contain', 'Mumbay Mumbay')
-    cy.get('#address_invoice .address_country_name').should('contain', 'India')
-    cy.get('#address_invoice .address_phone').should('contain', '555555555')
-
-    //message
-    cy.get('[name="message"]').type('Checked OK to Place order')
-    cy.get('a').contains('Place Order').click()
-    cy.get('[data-qa="name-on-card"]').type('Rick Ulrick')
-    cy.get('[data-qa="card-number"]').type('12345678')
-    cy.get('[data-qa="cvc"]').type('212')
-    cy.get('[data-qa="expiry-month"]').type('12')
-    cy.get('[data-qa="expiry-year"]').type('2025')
-    cy.get('button').contains('Pay and Confirm Order').click()
-    // cy.pause()
-    cy.get('p')
-      .contains('Congratulations! Your order has been confirmed!')
-      .should('exist')
+      //address_invoice
+      verificationPage.addressBilling(
+        gender,
+        name,
+        lastName,
+        state,
+        city,
+        zipCode,
+        phoneNumber,
+      )
+      //message
+      cy.get('[name="message"]').type('Checked OK to Place order')
+      cy.get('a').contains('Place Order').click()
+      paymentPage.fillPaymentForm(
+        name,
+        lastName,
+        cardNumber,
+        cvc,
+        cardMonth,
+        cardYear,
+      )
+    })
   })
   afterEach(() => {
-    //Delete account
-    cy.request('DELETE', 'https://automationexercise.com/api/deleteAccount', {
-      email: 'rick@example.com',
-      password: '123456',
-    }).then((response) => {
-      // response.body is automatically serialized into JSON
-      expect(response.status).to.eq(200) // true
-    })
-    // cy.visit('https://automationexercise.com/api/deleteAccount')
-    // cy.get('[data-method="DELETE"] button:contain("delete")').click()
+    navbarPage.goToDelete()
+    cy.window().scrollTo('top')
+    cy.get('#slider').should('be.visible')
   })
 })

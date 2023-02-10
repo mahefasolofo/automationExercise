@@ -1,22 +1,37 @@
 /// <reference types="cypress" />
+import LoginPage from '../pageObject/loginPage'
+const loginPage = new LoginPage()
+import NavbarPage from '../pageObject/navbarPage'
+const navbarPage = new NavbarPage()
+import SearchPage from '../pageObject/searchPage'
+const searchPage = new SearchPage()
 
+let item = 'Tshirt'
+let email
+let password
 describe('Test Case 20: Search Products and Verify Cart After Login', () => {
   beforeEach(() => {
+    cy.fixture('userDefault.json')
+      .its('users')
+      .then((item) => {
+        email = item[0].email
+        password = item[0].password
+      })
     cy.visit('https://automationexercise.com')
     cy.url().should('eq', 'https://automationexercise.com/')
-    cy.get('a').contains('Home').should('have.css', 'color', 'rgb(255, 165, 0)')
+    cy.get('#slider').should('be.visible')
   })
 
-  it('Tests Case 20', () => {
+  it('Tests Case 20: Search Products and Verify Cart After Login', () => {
     // 3. Click on 'Products' button
-    cy.get('li').contains('Products').click()
-    // 4. Verify user is navigated to ALL PRODUCTS page successfully
-    cy.get('.features_items > h2').contains('All Products').should('exist')
+    navbarPage.goToProduct()
+
     // 5. Enter product name in search input and click search button
-    cy.get('#search_product').type('Tshirt')
-    cy.get('#submit_search').click()
+    searchPage.searchItem(item)
     // 6. Verify 'SEARCHED PRODUCTS' is visible
-    cy.get('.features_items > h2').contains('Searched Products').should('exist')
+    cy.get('.features_items > h2')
+      .contains('Searched Products')
+      .should('be.visible')
     // 7. Verify all the products related to search are visible
     cy.get(
       ':nth-child(3) > .product-image-wrapper > .single-products > .productinfo > p',
@@ -62,27 +77,24 @@ describe('Test Case 20: Search Products and Verify Cart After Login', () => {
     ).click()
     cy.get('button:contains("Continue Shopping")').click()
     // 9. Click 'Cart' button and verify that products are visible in cart
-    cy.get('li').contains('Cart').click()
-    cy.get('#cart_info_table #product-2').should('exist')
-    cy.get('#cart_info_table #product-28').should('exist')
-    cy.get('#cart_info_table #product-29').should('exist')
-    cy.get('#cart_info_table #product-30').should('exist')
-    cy.get('#cart_info_table #product-31').should('exist')
-    cy.get('#cart_info_table #product-43').should('exist')
+    navbarPage.goToCart()
+    cy.get('#cart_info_table #product-2').should('be.visible')
+    cy.get('#cart_info_table #product-28').should('be.visible')
+    cy.get('#cart_info_table #product-29').should('be.visible')
+    cy.get('#cart_info_table #product-30').should('be.visible')
+    cy.get('#cart_info_table #product-31').should('be.visible')
+    cy.get('#cart_info_table #product-43').should('be.visible')
     // 10. Click 'Signup / Login' button and submit login details
-    cy.get('li').contains('Signup').click()
-    cy.get('h2').should('contain', 'Login to your account')
-    cy.get('[data-qa="login-email"]').type('john@example.com')
-    cy.get('[data-qa="login-password"]').type('123456')
-    cy.get('[data-qa="login-button"]').click()
+    navbarPage.goToSignup()
+    loginPage.fillLoginData(email, password)
     // 11. Again, go to Cart page
-    cy.get('li').contains('Cart').click()
+    navbarPage.goToCart()
     // 12. Verify that those products are visible in cart after login as well
-    cy.get('#cart_info_table #product-2').should('exist')
-    cy.get('#cart_info_table #product-28').should('exist')
-    cy.get('#cart_info_table #product-29').should('exist')
-    cy.get('#cart_info_table #product-30').should('exist')
-    cy.get('#cart_info_table #product-31').should('exist')
-    cy.get('#cart_info_table #product-43').should('exist')
+    cy.get('#cart_info_table #product-2').should('be.visible')
+    cy.get('#cart_info_table #product-28').should('be.visible')
+    cy.get('#cart_info_table #product-29').should('be.visible')
+    cy.get('#cart_info_table #product-30').should('be.visible')
+    cy.get('#cart_info_table #product-31').should('be.visible')
+    cy.get('#cart_info_table #product-43').should('be.visible')
   })
 })

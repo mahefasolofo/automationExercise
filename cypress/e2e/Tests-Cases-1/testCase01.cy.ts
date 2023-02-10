@@ -1,34 +1,73 @@
 /// <reference types="cypress" />
+const { faker } = require('@faker-js/faker')
+import SingUpPage from '../pageObject/signupPage'
+import NavbarPage from '../pageObject/navbarPage'
+const signupPage = new SingUpPage()
+const navbarPage = new NavbarPage()
 
-describe('Test Case 1', () => {
-  it('Test Case 1', () => {
+const phoneNumber = faker.phone.number()
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+const randomUserNumber = getRandomInt(0, 19)
+let randomRadioButton: string
+let name: string
+let email: string
+let password: string
+let lastName: string
+let companyName: string
+let address1: string
+let address2: string
+let country: string
+let state: string
+let city: string
+let zipCode: string
+
+describe('Test Case 1: Register User', () => {
+  it('Test Case 1:Register User', () => {
     cy.visit('https://automationexercise.com')
     cy.url().should('eq', 'https://automationexercise.com/')
-    cy.get('a').contains('Home').should('have.css', 'color', 'rgb(255, 165, 0)')
-    cy.get('li').contains('Signup').click()
-    cy.get('h2').should('contain', 'New User Signup!')
-    cy.get('[data-qa="signup-name"]').type('mahefa')
-    cy.get('[data-qa="signup-email"]').type('mahefa@gmail.com')
-    cy.get('[data-qa="signup-button"]').click()
-    cy.get('.title').should('contain', 'Enter Account Information')
-    cy.get('input[name="title"][value="Mr"]').check()
-    cy.get('#password').type('123456')
-    cy.get('#first_name').type('Randria')
-    cy.get('#last_name').type('Mahefa')
-    cy.get('#company').type('Independant Inc.')
-    cy.get('#address1').type('Iavoloha')
-    cy.get('#address2').type('Mahazo')
-    cy.get('#country').select('India')
-    cy.get('#state').type('Mumbay')
-    cy.get('#city').type('Mumbay')
-    cy.get('#zipcode').type('101')
-    cy.get('#mobile_number').type('0320714589')
-    cy.get('[data-qa="create-account"]').click()
-    cy.get('[data-qa="account-created"]').should('contain', 'Account Created!')
-    cy.get('[data-qa="continue-button"]').click()
-    cy.get('.navbar-nav').should('contain', 'Logged in as mahefa')
-    cy.get('li').contains('Delete Account').click()
-    cy.get('[data-qa="account-deleted"]').should('contain', 'Account Deleted!')
-    cy.get('[data-qa="continue-button"]').click()
+    cy.get('#slider').should('be.visible')
+    navbarPage.goToSignup()
+    cy.get('.signup-form > h2').contains('New User Signup!')
+
+    cy.fixture('data.json').then((item) => {
+      ;(randomRadioButton = item[randomUserNumber].gender[0]),
+        (name = item[randomUserNumber].name),
+        (email = item[randomUserNumber].email),
+        (password = item[randomUserNumber].password),
+        (lastName = item[randomUserNumber].lastName),
+        (companyName = item[randomUserNumber].companyName),
+        (address1 = item[randomUserNumber].address1),
+        (address2 = item[randomUserNumber].address2),
+        (country = item[randomUserNumber].country),
+        (state = item[randomUserNumber].state),
+        (city = item[randomUserNumber].city),
+        (zipCode = item[randomUserNumber].zipCode),
+        console.log(country)
+      signupPage.fillSignupForm(name, email)
+      cy.get('.title').should('contain', 'Enter Account Information')
+      signupPage.fillSignupAccountInformation(
+        randomRadioButton,
+        password,
+        name,
+        lastName,
+        companyName,
+        address1,
+        address2,
+        country,
+        state,
+        city,
+        zipCode,
+        phoneNumber,
+      )
+      //verification
+      cy.get('.navbar-nav').should('contain', 'Logged in as ' + name)
+    })
+
+    // Delete account
+    navbarPage.goToDelete()
+    cy.window().scrollTo('top')
+    cy.get('#slider').should('be.visible')
   })
 })

@@ -1,72 +1,103 @@
 /// <reference types="cypress" />
+const { faker } = require('@faker-js/faker')
+import LoginPage from '../pageObject/loginPage'
+const loginPage = new LoginPage()
+import NavbarPage from '../pageObject/navbarPage'
+const navbarPage = new NavbarPage()
+import VerificationPage from '../pageObject/verificationPage'
+const verificationPage = new VerificationPage()
+import PaymentPage from '../pageObject/payementPage'
+const paymentPage = new PaymentPage()
+import AddProductPage from '../pageObject/addProductPage'
+const addProductPage = new AddProductPage()
+
+let title = 'Mr.'
+let email
+let name
+let password
+let lastName
+let state
+let city
+let zipCode
+let phoneNumber
+//we use faker for others payment information
+const cardNumber = faker.finance.creditCardNumber()
+const cvc = faker.finance.creditCardCVV()
+const cardMonth = faker.datatype.number({ min: 1, max: 12 }).toString()
+let futureDate = faker.date.future(5)
+const cardYear = futureDate.getFullYear()
 
 describe('Test Case 16: Place Order: Login before Checkout', () => {
   beforeEach(() => {
+    cy.fixture('userDefault.json')
+      .its('users')
+      .then((item) => {
+        email = item[0].email
+        name = item[0].name
+        password = item[0].password
+        lastName = item[0].lastName
+        state = item[0].state
+        city = item[0].city
+        zipCode = item[0].zipCode
+        phoneNumber = item[0].phoneNumber
+      })
     cy.visit('https://automationexercise.com')
     cy.url().should('eq', 'https://automationexercise.com/')
-    cy.get('a').contains('Home').should('have.css', 'color', 'rgb(255, 165, 0)')
+    cy.get('#slider').should('be.visible')
   })
 
-  it('Tests Case 16', () => {
-    cy.get('li').contains('Signup').click()
+  it('Tests Case 16: Place Order: Login before Checkout', () => {
+    navbarPage.goToSignup()
     cy.get('h2').should('contain', 'Login to your account')
-    cy.get('[data-qa="login-email"]').type('john@example.com')
-    cy.get('[data-qa="login-password"]').type('123456')
-    cy.get('[data-qa="login-button"]').click()
+    loginPage.fillLoginData(email, password)
+    cy.get('.navbar-nav').should(
+      'contain',
+      'Logged in as ' + name.toLowerCase(),
+    )
     //Add product to Cart
-    cy.get('.overlay-content [data-product-id="1"]').click({ force: true })
-    cy.get('button:contains("Continue Shopping")').click()
-    cy.get('.overlay-content [data-product-id="2"]').click({ force: true })
-    cy.get('button:contains("Continue Shopping")').click()
-    cy.get('.overlay-content [data-product-id="3"]').click({ force: true })
-    cy.get('button:contains("Continue Shopping")').click()
+    addProductPage.addRandomProduct()
     //Click cart button
-    cy.get('li').contains('Cart').click()
-    //verify that cart page is displayed
-    cy.get('.active:contains("Shopping Cart")').should('exist')
+    navbarPage.goToCart()
+
     //Proceed to checkout
     cy.get('.btn:contains("Proceed To Checkout")').click()
-    //Address Details
-    //address_delivery
-    cy.get('#address_delivery .address_lastname').should(
-      'contain',
-      'Mr. John Snow',
+    //Address Details Verification
+    verificationPage.addressDelivery(
+      title,
+      name,
+      lastName,
+      state,
+      city,
+      zipCode,
+      phoneNumber,
     )
-    cy.get('#address_delivery .address_address1 ').should(
-      'contain',
-      '125th Str belle vue',
-    )
-    cy.get('#address_delivery .address_city').should('contain', 'Mumbay Mumbay')
-    cy.get('#address_delivery .address_country_name').should('contain', 'India')
-    cy.get('#address_delivery .address_phone').should('contain', '222000555')
-
     //address_invoice
-    cy.get('#address_invoice .address_lastname').should(
-      'contain',
-      'Mr. John Snow',
+    verificationPage.addressBilling(
+      title,
+      name,
+      lastName,
+      state,
+      city,
+      zipCode,
+      phoneNumber,
     )
-    cy.get('#address_invoice .address_address1 ').should(
-      'contain',
-      '125th Str belle vue',
-    )
-    cy.get('#address_invoice .address_city').should('contain', 'Mumbay Mumbay')
-    cy.get('#address_invoice .address_country_name').should('contain', 'India')
-    cy.get('#address_invoice .address_phone').should('contain', '222000555')
 
     //message
     cy.get('[name="message"]').type('Checked OK to Place order')
 
     //Enter payment details:
     cy.get('a').contains('Place Order').click()
-    cy.get('[data-qa="name-on-card"]').type('John Snow')
-    cy.get('[data-qa="card-number"]').type('12345678')
-    cy.get('[data-qa="cvc"]').type('212')
-    cy.get('[data-qa="expiry-month"]').type('12')
-    cy.get('[data-qa="expiry-year"]').type('2025')
-    cy.get('button').contains('Pay and Confirm Order').click()
-    //Verify message
-    cy.get('p')
-      .contains('Congratulations! Your order has been confirmed!')
-      .should('exist')
+    paymentPage.fillPaymentForm(
+      name,
+      lastName,
+      cardNumber,
+      cvc,
+      cardMonth,
+      cardYear,
+    )
+  })
+  afterEach(() => {
+    navbarPage.goToLogout()
+    cy.get('.login-form').should('be.visible')
   })
 })
