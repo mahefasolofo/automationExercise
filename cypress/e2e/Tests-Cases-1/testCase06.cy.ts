@@ -8,12 +8,10 @@ let nameUser
 
 describe('Test Case 6 : Contact Us Form', () => {
   beforeEach(() => {
-    cy.fixture('userDefault.json')
-      .its('users')
-      .then((item) => {
-        emailUser = item[0].email
-        nameUser = item[0].name
-      })
+    cy.fixture('data.json').then((item) => {
+      emailUser = item[0].email
+      nameUser = item[0].name
+    })
   })
   it('Test Case 6: Contact Us Form', () => {
     cy.visit('https://automationexercise.com')

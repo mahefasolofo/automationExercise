@@ -3,6 +3,7 @@ const fs = require('fs')
 
 let data = []
 let futureDate = faker.date.future(5)
+let birthday
 let title
 //random title
 const radioButtons = ['#id_gender1', '#id_gender2']
@@ -31,6 +32,8 @@ for (let i = 0; i < 20; i++) {
   } else {
     title = 'Mrs.'
   }
+  birthday = faker.date.birthdate({ min: 1900, max: 2000, mode: 'year' })
+
   let gender = [randomRadioButton]
   gender.push(title)
   data.push({
@@ -39,6 +42,9 @@ for (let i = 0; i < 20; i++) {
     email: faker.internet.email(),
     password: faker.internet.password(),
     lastName: faker.name.lastName(),
+    birthDate: birthday.getDate().toString(),
+    birthMonth: (birthday.getMonth() + 1).toString(),
+    birthYear: birthday.getFullYear().toString(),
     companyName: faker.company.companyName(),
     address1: faker.address.city(),
     address2: faker.address.city(),

@@ -1,37 +1,58 @@
 /// <reference types="cypress" />
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+
+Cypress.Commands.add('deleteUser', (email, password) => {
+  cy.request({
+    method: 'DELETE',
+    url: 'https://automationexercise.com/api/deleteAccount',
+    form: true,
+    body: { email: email, password: password },
+  })
+})
+
+Cypress.Commands.add(
+  'createUser',
+  (
+    name: string,
+    email: string,
+    password: string,
+    title: string,
+    birth_date: string,
+    birth_month: string,
+    birth_year: string,
+    lastName: string,
+    companyName: string,
+    address1: string,
+    address2: string,
+    country: string,
+    zipCode: string,
+    state: string,
+    city: string,
+    phoneNumber: string,
+  ) => {
+    //create
+    cy.request({
+      method: 'POST',
+      url: 'https://automationexercise.com/api/createAccount',
+      form: true,
+      body: {
+        name: name,
+        email: email,
+        password: password,
+        title: title,
+        birth_date: birth_date,
+        birth_month: birth_month,
+        birth_year: birth_year,
+        firstname: name,
+        lastname: lastName,
+        company: companyName,
+        address1: address1,
+        address2: address2,
+        country: country,
+        zipcode: zipCode,
+        state: state,
+        city: city,
+        mobile_number: phoneNumber,
+      },
+    })
+  },
+)

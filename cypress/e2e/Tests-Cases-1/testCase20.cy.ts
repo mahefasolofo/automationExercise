@@ -7,16 +7,62 @@ import SearchPage from '../pageObject/searchPage'
 const searchPage = new SearchPage()
 
 let item = 'Tshirt'
-let email
-let password
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+const randomUserNumber = getRandomInt(0, 19)
+let title: string
+let name: string
+let email: string
+let password: string
+let birth_date: string
+let birth_month: string
+let birth_year: string
+let lastName: string
+let companyName: string
+let address1: string
+let address2: string
+let country: string
+let state: string
+let city: string
+let zipCode: string
+let phoneNumber: string
+
 describe('Test Case 20: Search Products and Verify Cart After Login', () => {
   beforeEach(() => {
-    cy.fixture('userDefault.json')
-      .its('users')
-      .then((item) => {
-        email = item[0].email
-        password = item[0].password
-      })
+    cy.fixture('data.json').then((item) => {
+      ;(title = item[randomUserNumber].gender[1]),
+        (name = item[randomUserNumber].name),
+        (email = item[randomUserNumber].email),
+        (password = item[randomUserNumber].password),
+        (lastName = item[randomUserNumber].lastName),
+        (companyName = item[randomUserNumber].companyName),
+        (address1 = item[randomUserNumber].address1),
+        (address2 = item[randomUserNumber].address2),
+        (country = item[randomUserNumber].country),
+        (state = item[randomUserNumber].state),
+        (city = item[randomUserNumber].city),
+        (zipCode = item[randomUserNumber].zipCode),
+        (phoneNumber = item[randomUserNumber].phoneNumber),
+        cy.createUser(
+          name,
+          email,
+          password,
+          title,
+          birth_date,
+          birth_month,
+          birth_year,
+          lastName,
+          companyName,
+          address1,
+          address2,
+          country,
+          zipCode,
+          state,
+          city,
+          phoneNumber,
+        )
+    })
     cy.visit('https://automationexercise.com')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get('#slider').should('be.visible')
@@ -96,5 +142,9 @@ describe('Test Case 20: Search Products and Verify Cart After Login', () => {
     cy.get('#cart_info_table #product-30').should('be.visible')
     cy.get('#cart_info_table #product-31').should('be.visible')
     cy.get('#cart_info_table #product-43').should('be.visible')
+  })
+  afterEach(() => {
+    cy.deleteUser(email, password)
+    navbarPage.goToHome()
   })
 })
