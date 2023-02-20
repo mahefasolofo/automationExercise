@@ -1,7 +1,7 @@
 ///<reference types="cypress" />
 import SingUpPage from '../pageObject/signupPage'
 const signupPage = new SingUpPage()
-import NavbarPage from '../pageObject/navbarPage'
+import { NavbarPage } from '../pageObject/navbarPage'
 const navbarPage = new NavbarPage()
 import VerificationPage from '../pageObject/verificationPage'
 const verificationPage = new VerificationPage()

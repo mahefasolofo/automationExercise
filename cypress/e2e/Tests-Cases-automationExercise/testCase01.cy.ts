@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 const { faker } = require('@faker-js/faker')
 import SingUpPage from '../pageObject/signupPage'
-import NavbarPage from '../pageObject/navbarPage'
+import { NavbarPage } from '../pageObject/navbarPage'
 const signupPage = new SingUpPage()
 const navbarPage = new NavbarPage()
 

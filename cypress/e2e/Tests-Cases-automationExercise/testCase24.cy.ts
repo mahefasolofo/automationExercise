@@ -4,7 +4,7 @@ import SingUpPage from '../pageObject/signupPage'
 const signUpPage = new SingUpPage()
 import AddProductPage from '../pageObject/addProductPage'
 const addProductPage = new AddProductPage()
-import NavbarPage from '../pageObject/navbarPage'
+import { NavbarPage } from '../pageObject/navbarPage'
 const navbarPage = new NavbarPage()
 import VerificationPage from '../pageObject/verificationPage'
 const verificationPage = new VerificationPage()

@@ -5,7 +5,7 @@ import AddProductPage from '../pageObject/addProductPage'
 const addProductPage = new AddProductPage()
 import VerificationPage from '../pageObject/verificationPage'
 const verificationPage = new VerificationPage()
-import NavbarPage from '../pageObject/navbarPage'
+import { NavbarPage } from '../pageObject/navbarPage'
 const navbarPage = new NavbarPage()
 
 function getRandomInt(min, max) {

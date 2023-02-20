@@ -2,7 +2,7 @@
 
 import LoginPage from '../pageObject/loginPage'
 const loginPage = new LoginPage()
-import NavbarPage from '../pageObject/navbarPage'
+import { NavbarPage } from '../pageObject/navbarPage'
 const navbarPage = new NavbarPage()
 import VerificationPage from '../pageObject/verificationPage'
 const verificationPage = new VerificationPage()

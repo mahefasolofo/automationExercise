@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import NavbarPage from '../pageObject/navbarPage'
+import { NavbarPage } from '../pageObject/navbarPage'
 const navbarPage = new NavbarPage()
 describe('Test Case 7: Verify Test Cases Page', () => {
   it('Test Case 7: Verify Test Cases Page', () => {

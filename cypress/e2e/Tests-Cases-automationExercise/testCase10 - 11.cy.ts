@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import ContactPage from '../pageObject/contactPage'
 const contactPage = new ContactPage()
-import NavbarPage from '../pageObject/navbarPage'
+import { NavbarPage } from '../pageObject/navbarPage'
 const navbarPage = new NavbarPage()
 let emailUser
 describe('Test Case 10 11: Subscription', () => {

@@ -50,14 +50,17 @@ describe('navigation on home page', () => {
   })
 
   //WEL-T906
-  it('S02 : WEL-T906 : As a logged in user when I clear cookies I should be logged out ', () => {
+  it('S02 : As a logged in user when I clear cookies I should be logged out ', () => {
     cy.visit('https://automationexercise.com')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get(selectors.homeIdentifier).should('be.visible')
     navbarPage.goToSignup()
     cy.get(selectors.signupIdentifier).should('be.visible')
     signupPage.fillSignupForm(name, email)
-    cy.get('.title').should('contain', 'Enter Account Information')
+    cy.get(selectors.signupSignupActionTitle).should(
+      'contain',
+      'Enter Account Information',
+    )
     signupPage.fillSignupAccountInformation(
       randomRadioButton,
       password,
@@ -73,13 +76,13 @@ describe('navigation on home page', () => {
       phoneNumber,
     )
     //verification
-    cy.get('.navbar-nav').should('contain', 'Logged in as ' + name)
+    cy.get(selectors.navbar).should('contain', 'Logged in as ' + name)
 
     // API Delete account
     cy.clearCookies()
     cy.reload()
     cy.window().scrollTo('top')
-    cy.get('[href="/login"]').should('be.visible')
+    cy.get(selectors.navSignup).should('be.visible')
   })
 
   afterEach(() => {
