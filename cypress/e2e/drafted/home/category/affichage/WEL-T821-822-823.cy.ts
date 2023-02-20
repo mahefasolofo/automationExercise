@@ -1,13 +1,13 @@
 /// <reference types="cypress" />
 
-describe('Test Case 18: View Category Products', () => {
+describe('S01 : WEL-T821: View Category Products', () => {
   beforeEach(() => {
     cy.visit('https://automationexercise.com')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get('#slider').should('be.visible')
   })
 
-  it('Tests Case 18: View Category Products', () => {
+  it('S01 : WEL-T821-822-823: View Category Products', () => {
     //Verify that categories are visible on left side bar
     cy.get('.left-sidebar h2:contains("Category")').should('be.visible')
     cy.get('#accordian .panel .panel-heading [href="#Women"]').click()

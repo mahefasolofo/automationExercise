@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
-import ContactPage from '../pageObject/contactPage'
+import ContactPage from '../../../../pageObject/contactPage'
 const contactPage = new ContactPage()
-import NavbarPage from '../pageObject/navbarPage'
+import { NavbarPage } from '../../../../pageObject/navbarPage'
 const navbarPage = new NavbarPage()
 
 function getRandomInt(min, max) {
@@ -10,7 +10,7 @@ function getRandomInt(min, max) {
 const randomUserNumber = getRandomInt(0, 19)
 let email
 let name
-describe('Test Case 21: Add review on product', () => {
+describe('S01: WEL-T814 : Add review on product', () => {
   beforeEach(() => {
     cy.fixture('data.json').then((item) => {
       email = item[randomUserNumber].email
@@ -20,7 +20,7 @@ describe('Test Case 21: Add review on product', () => {
     cy.url().should('eq', 'https://automationexercise.com/')
   })
 
-  it('Tests Case 21: Add review on product', () => {
+  it('01: WEL-T814 : Add review on product', () => {
     // 3. Click on 'Products' button
     navbarPage.goToProduct()
 

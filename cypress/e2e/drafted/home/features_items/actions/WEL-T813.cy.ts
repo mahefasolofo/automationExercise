@@ -1,9 +1,9 @@
 /// <reference types="cypress" />
-import NavbarPage from '../pageObject/navbarPage'
+import { NavbarPage } from '../../../../pageObject/navbarPage'
 const navbarPage = new NavbarPage()
 
-describe('Test Case 8: Verify All Products and product detail page', () => {
-  it('Test Case 8: Verify All Products and product detail page', () => {
+describe('S07: WEL-T813: When I click on the View Product button then I should arrive on the "product_details/*" page with the image of the product its descriptions a quantity field and an add to cart button as well as a Review form', () => {
+  it('S07: WEL-T813: When I click on the View Product button then I should arrive on the "product_details/*" page with the image of the product its descriptions a quantity field and an add to cart button as well as a Review form', () => {
     cy.visit('https://automationexercise.com')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get('#slider').should('be.visible')
