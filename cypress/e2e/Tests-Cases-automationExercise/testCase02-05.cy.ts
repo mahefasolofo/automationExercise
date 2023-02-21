@@ -3,7 +3,7 @@ import LoginPage from '../pageObject/loginPage'
 const loginPage = new LoginPage()
 import { NavbarPage } from '../pageObject/navbarPage'
 const navbarPage = new NavbarPage()
-import SingUpPage from '../pageObject/signupPage'
+import { SingUpPage } from '../pageObject/signupPage'
 const signUpPage = new SingUpPage()
 
 // let emailUser

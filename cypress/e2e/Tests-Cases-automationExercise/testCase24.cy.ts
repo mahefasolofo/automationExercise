@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import SingUpPage from '../pageObject/signupPage'
+import { SingUpPage } from '../pageObject/signupPage'
 const signUpPage = new SingUpPage()
 import AddProductPage from '../pageObject/addProductPage'
 const addProductPage = new AddProductPage()
@@ -64,6 +64,7 @@ describe('Test Case 24: Download Invoice after purchase order', () => {
 
   it('Tests Case 24: Download Invoice after purchase order', () => {
     // 4. Add products to cart
+    navbarPage.goToProduct()
     addProductPage.addRandomProduct()
     // 5. Click 'Cart' button
     navbarPage.goToCart()

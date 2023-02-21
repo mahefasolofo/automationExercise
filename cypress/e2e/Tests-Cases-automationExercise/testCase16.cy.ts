@@ -88,6 +88,7 @@ describe('Test Case 16: Place Order: Login before Checkout', () => {
     loginPage.fillLoginData(email, password)
     cy.get('.navbar-nav').should('contain', 'Logged in as ' + name)
     //Add product to Cart
+    navbarPage.goToProduct()
     addProductPage.addRandomProduct()
     //Click cart button
     navbarPage.goToCart()

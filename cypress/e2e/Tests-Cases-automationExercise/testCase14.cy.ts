@@ -1,5 +1,5 @@
 ///<reference types="cypress" />
-import SingUpPage from '../pageObject/signupPage'
+import { SingUpPage } from '../pageObject/signupPage'
 const signupPage = new SingUpPage()
 import { NavbarPage } from '../pageObject/navbarPage'
 const navbarPage = new NavbarPage()
@@ -61,6 +61,7 @@ describe('Test Case 14: Place Order: Register while Checkout', () => {
 
   it('test case 14: Place Order: Register while Checkout', () => {
     //Add product to cart
+    navbarPage.goToProduct()
     addProductPage.addRandomProduct()
     navbarPage.goToCart()
     //verify that cart page is displayed

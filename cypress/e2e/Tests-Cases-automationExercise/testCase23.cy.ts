@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import SingUpPage from '../pageObject/signupPage'
+import { SingUpPage } from '../pageObject/signupPage'
 const signupPage = new SingUpPage()
 import AddProductPage from '../pageObject/addProductPage'
 const addProductPage = new AddProductPage()
@@ -74,6 +74,7 @@ describe('Test Case 23: Verify address details in checkout page', () => {
     cy.get('.navbar-nav').should('contain', 'Logged in as ' + name)
 
     // 8. Add products to cart
+    navbarPage.goToProduct()
     addProductPage.addRandomProduct()
     // 9. Click 'Cart' button
     navbarPage.goToCart()

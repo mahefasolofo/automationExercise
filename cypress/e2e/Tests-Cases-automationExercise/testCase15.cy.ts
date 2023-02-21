@@ -1,8 +1,8 @@
 ///<reference types="cypress" />
 
-import SingUpPage from '../pageObject/signupPage'
+import { SingUpPage } from '../pageObject/signupPage'
 const signupPage = new SingUpPage()
-import { NavbarPage } from '../pageObject/navbarPage'
+import { NavbarPage, selectors } from '../pageObject/navbarPage'
 const navbarPage = new NavbarPage()
 import VerificationPage from '../pageObject/verificationPage'
 const verificationPage = new VerificationPage()
@@ -57,7 +57,7 @@ describe('Test Case 15: Place Order: Register before Checkout', () => {
     })
     cy.visit('https://automationexercise.com')
     cy.url().should('eq', 'https://automationexercise.com/')
-    cy.get('#slider').should('be.visible')
+    cy.get(selectors.homeIdentifier).should('be.visible')
   })
 
   it('test case 15: Place Order: Register before Checkout', () => {
@@ -82,8 +82,9 @@ describe('Test Case 15: Place Order: Register before Checkout', () => {
       zipCode,
       phoneNumber,
     )
-    cy.get('.navbar-nav').should('contain', 'Logged in as ', name)
+    cy.get(selectors.navbar).should('contain', 'Logged in as ', name)
     //Add product to cart
+    navbarPage.goToProduct()
     addProductPage.addRandomProduct()
 
     //Click cart button
@@ -128,6 +129,6 @@ describe('Test Case 15: Place Order: Register before Checkout', () => {
     cy.deleteUser(email, password)
     navbarPage.goToHome()
     cy.window().scrollTo('top')
-    cy.get('.navbar-nav [href="/login"]').should('be.visible')
+    cy.get(selectors.navbar).should('be.visible')
   })
 })

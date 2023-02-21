@@ -12,11 +12,14 @@ describe('Test Case 17: Remove Products From Cart', () => {
 
   it('Tests Case 17: Remove Products From Cart', () => {
     //Add product to cart
+    navbarPage.goToProduct()
     addProductPage.addRandomProduct()
     //Click cart button
     navbarPage.goToCart()
     //Click X button corresponding to particular product
+    cy.get('#product-1 .cart_quantity_delete').click()
     cy.get('#product-2 .cart_quantity_delete').click()
+    cy.get('#product-3 .cart_quantity_delete').click()
     cy.get('#product-2').its('length').should('equal', 0)
   })
 })
