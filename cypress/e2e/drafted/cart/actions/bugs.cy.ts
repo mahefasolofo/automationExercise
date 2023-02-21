@@ -1,11 +1,12 @@
 /// <reference types="cypress" />
 const { faker } = require('@faker-js/faker')
 import SingUpPage from '../../../pageObject/signupPage'
-import { NavbarPage } from '../../../pageObject/navbarPage'
+import { NavbarPage, selectors } from '../../../pageObject/navbarPage'
 import AddProductPage from '../../../pageObject/addProductPage'
 const signupPage = new SingUpPage()
 const navbarPage = new NavbarPage()
 const addProduct = new AddProductPage()
+import { cartSelectors } from '../../../pageObject/cartPage'
 
 const phoneNumber = faker.phone.number()
 function getRandomInt(min, max) {
@@ -25,7 +26,7 @@ let state: string
 let city: string
 let zipCode: string
 
-describe('S07: WEL-T911: When I fill in the "CVC" and "Expiration" fields only numeric characters must be accepted', () => {
+describe('bugs on Cart page', () => {
   beforeEach(() => {
     cy.fixture('data.json').then((item) => {
       ;(randomRadioButton = item[randomUserNumber].gender[0]),
@@ -42,14 +43,18 @@ describe('S07: WEL-T911: When I fill in the "CVC" and "Expiration" fields only n
         (zipCode = item[randomUserNumber].zipCode)
     })
   })
-  it('S07: WEL-T911: When I fill in the "CVC" and "Expiration" fields only numeric characters must be accepted', () => {
+  //WEL-T911
+  it('S07: When I fill in the "CVC" and "Expiration" fields only numeric characters must be accepted', () => {
     cy.visit('https://automationexercise.com')
     cy.url().should('eq', 'https://automationexercise.com/')
-    cy.get('#slider').should('be.visible')
+    cy.get(selectors.homeIdentifier).should('be.visible')
     navbarPage.goToSignup()
-    cy.get('.signup-form > h2').contains('New User Signup!')
+    cy.get(selectors.signupIdentifier).contains('New User Signup!')
     signupPage.fillSignupForm(name, email)
-    cy.get('.title').should('contain', 'Enter Account Information')
+    cy.get(selectors.signupSignupActionTitle).should(
+      'contain',
+      'Enter Account Information',
+    )
     signupPage.fillSignupAccountInformation(
       randomRadioButton,
       password,
@@ -67,11 +72,25 @@ describe('S07: WEL-T911: When I fill in the "CVC" and "Expiration" fields only n
     navbarPage.goToProduct()
     addProduct.addRandomProduct()
     navbarPage.goToCart()
-    cy.get('.check_out').click()
-    cy.get('.check_out').click()
-    cy.get('[name="card_number"]').type('abc123').should('have.value', '123') //FIXME : doit contenir seulement des nombres
-    cy.get('[name="cvc"]').type('abc123').should('have.value', '123') //FIXME : doit contenir seulement des nombres
-    cy.get('[name="expiry_month"]').type('abc123').should('have.value', '123') //FIXME : doit contenir seulement des nombres
-    cy.get('[name="expiry_year"]').type('abc123').should('have.value', '123') //FIXME : doit contenir seulement des nombres
+    cy.get(cartSelectors.checkoutButton).click()
+    cy.get(cartSelectors.checkoutButton).click()
+    cy.get(cartSelectors.cardNumberField)
+      .type('abc123')
+      .should('have.value', '123') //FIXME : doit contenir seulement des nombres
+    cy.get(cartSelectors.cvcField).type('abc123').should('have.value', '123') //FIXME : doit contenir seulement des nombres
+    cy.get(cartSelectors.expiryMonthField)
+      .type('abc123')
+      .should('have.value', '123') //FIXME : doit contenir seulement des nombres
+    cy.get(cartSelectors.expiryYearField)
+      .type('abc123')
+      .should('have.value', '123') //FIXME : doit contenir seulement des nombres
+  })
+  //WEL-T912
+  it('S07: When I click on product photos I should be redirected to the "product_details" page', () => {
+    navbarPage.goToProduct()
+    addProduct.addRandomProduct()
+    navbarPage.goToCart()
+    cy.get(cartSelectors.firstProductImage).click()
+    cy.get(cartSelectors.productDetailsIdentifier).should('be.visible') //FIXME: la page product_details doit s'afficher
   })
 })

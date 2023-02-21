@@ -38,6 +38,10 @@ const productSelectors = {
   reviewIdentifier: '.active a:contains("Write Your Review")',
   reviewMessageSuccess: '#review-section .alert-success > span',
   reviewButton: '#button-review',
+
+  //search
+  searchField: '#search_product',
+  searchButton: '#submit_search',
 }
 
 export { productSelectors }

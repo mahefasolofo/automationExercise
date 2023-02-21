@@ -14,6 +14,9 @@ const selectors = {
   subscriptionEmail: '#susbscribe_email',
   subscriptionButton: '#subscribe',
   subscriptionAlert: '#success-subscribe',
+  emailLink: '.contact-info address u',
+  homeIdentifier: '#slider',
+  required: '[required="required"]',
 }
 class ContactPage {
   fillContactUs(name: string, email: string, file: string) {
@@ -48,4 +51,4 @@ class ContactPage {
   }
 }
 
-export default ContactPage
+export { ContactPage, selectors }
