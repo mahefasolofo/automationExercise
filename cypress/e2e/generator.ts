@@ -23,7 +23,7 @@ function randomCountry(country) {
   return country[randomIndex]
 }
 
-for (let i = 0; i < 20; i++) {
+for (let i = 0; i < 100; i++) {
   const country = randomCountry(countries)
   const randomIndex = Math.floor(Math.random() * radioButtons.length)
   let randomRadioButton = radioButtons[randomIndex]
