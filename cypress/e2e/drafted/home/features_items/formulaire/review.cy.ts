@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import ContactPage from '../../../../pageObject/contactPage'
+import { ContactPage } from '../../../../pageObject/contactPage'
 const contactPage = new ContactPage()
 import { NavbarPage } from '../../../../pageObject/navbarPage'
 const navbarPage = new NavbarPage()

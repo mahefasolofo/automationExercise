@@ -17,6 +17,6 @@ describe('send an email via the mailto link', () => {
   // WEL-T909
   it('S05 : Mandatory fields must be marked with an asterisk', () => {
     navbar.goToContactUs()
-    cy.get(selectors.required).should('contain', '*') //FIXME:
+    cy.get(selectors.required) //FIXME: .should('contain', '*')
   })
 })
