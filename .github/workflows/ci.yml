@@ -1,7 +1,11 @@
 name: CI
 
 on:
-  merge:
+  push:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
     
 
 jobs:
