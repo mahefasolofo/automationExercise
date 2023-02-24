@@ -60,7 +60,11 @@ for (let i = 0; i < 100; i++) {
   })
 }
 
-fs.writeFile('../fixtures/data.json', JSON.stringify(data), function (err) {
-  if (err) throw err
-  console.log('Fichier créé !')
-})
+fs.writeFile(
+  'cypress/fixtures/data.json',
+  JSON.stringify(data),
+  function (err) {
+    if (err) throw err
+    console.log('Fichier créé !')
+  },
+)
