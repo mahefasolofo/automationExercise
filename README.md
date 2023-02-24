@@ -1,6 +1,5 @@
-# automationExercise
-Automation exercise with Cypress using https://automationexercise.com/. Based on the test cases in https://automationexercise.com/test_cases
+In this tutorial project I set up automated tests of the site https://automationexercise.com/ . 
+So test cases proposed in the site but also other test cases from the writing of tests in BDD made upstream.
+The automated tests are written in Clean Code using Typescript associated with EsLint and Prettier.
 
-Rajout de pageObject
-
-Autre chose
+Mahefa Rasolofonirina
