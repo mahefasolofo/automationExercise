@@ -13,7 +13,7 @@ const addProductPage = new AddProductPage()
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
-const randomUserNumber = getRandomInt(0, 19)
+const randomUserNumber = getRandomInt(0, 99)
 let randomRadioButton: string
 let gender: string
 let name: string

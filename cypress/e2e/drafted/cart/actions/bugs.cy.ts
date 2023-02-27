@@ -12,7 +12,7 @@ const phoneNumber = faker.phone.number()
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
-const randomUserNumber = getRandomInt(0, 19)
+const randomUserNumber = getRandomInt(0, 99)
 let randomRadioButton: string
 let name: string
 let email: string
@@ -88,5 +88,8 @@ describe('bugs on Cart page', () => {
     navbarPage.goToCart()
     cy.get(cartSelectors.firstProductImage).click()
     // cy.get(cartSelectors.productDetailsIdentifier).should('be.visible') //FIXME: la page product_details doit s'afficher
+  })
+  afterEach(() => {
+    cy.deleteUser(email, password)
   })
 })
