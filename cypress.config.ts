@@ -8,7 +8,6 @@ export default defineConfig({
     html: false,
     json: true,
     video: true,
-    screenshotsFolder: 'images',
     pageLoadTimeout: 12000,
   },
 
