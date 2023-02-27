@@ -27,6 +27,12 @@ jobs:
       run: npm ci
     - name: Run tests
       run: npm run cy:run
+    - name: Upload video report
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: videos
+        path: videos/Tests_Cases_automationExercise
     - name: Merge reports
       if: always()
       run: npm run report:merge
@@ -39,9 +45,3 @@ jobs:
       with:
         name: mochawesome-report
         path: mochawesome-report
-    - name: Upload video report
-      if: always()
-      uses: actions/upload-artifact@v2
-      with:
-        name: videos
-        path: videos
