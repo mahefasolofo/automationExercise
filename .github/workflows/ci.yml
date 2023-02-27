@@ -39,3 +39,9 @@ jobs:
       with:
         name: mochawesome-report
         path: mochawesome-report
+    - name: Upload video report
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: videos
+        path: videos
