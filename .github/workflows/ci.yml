@@ -39,3 +39,16 @@ jobs:
       with:
         name: mochawesome-report
         path: mochawesome-report
+    - name: Upload Screeshots
+      if: failure()
+      uses: actions/upload-artifact@v2
+      with:
+        name: cypress-screenshots
+        path: cypress/screenshots
+      # Test run video was always captured, so this action uses "always()" condition
+    - name: Upload videos
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: cypress-videos
+        path: cypress/videos
