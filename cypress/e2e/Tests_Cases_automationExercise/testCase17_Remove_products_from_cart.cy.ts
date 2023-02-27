@@ -20,6 +20,6 @@ describe('Test Case 17: Remove Products From Cart', () => {
     cy.get('#product-1 .cart_quantity_delete').click()
     cy.get('#product-2 .cart_quantity_delete').click()
     cy.get('#product-3 .cart_quantity_delete').click()
-    cy.get('#product-2').its('length').should('equal', 0)
+    cy.get('#empty_cart').should('be.visible')
   })
 })
