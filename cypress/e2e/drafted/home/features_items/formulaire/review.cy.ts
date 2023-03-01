@@ -36,9 +36,10 @@ describe('Add review on product and verification', () => {
     )
   })
   //WEL-T815
-  it('S02: Review verification', () => {
+  it.only('S02: Review verification', () => {
     // Click on 'View Product' button
     cy.get(productSelectors.viewProduct).eq(0).click()
+
     cy.get(productSelectors.reviewButton).click() //FIXME : impossible d'atteindre le message d'erreur
   })
 })

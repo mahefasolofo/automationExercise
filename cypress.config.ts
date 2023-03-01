@@ -1,4 +1,5 @@
 import { defineConfig } from 'cypress'
+// import * from 'fs'
 
 export default defineConfig({
   reporter: 'mochawesome',
