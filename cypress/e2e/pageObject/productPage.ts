@@ -1,10 +1,13 @@
 const productSelectors = {
   //product feature_items
-  productAdd: '.features_items .col-sm-4 .productinfo .add-to-cart',
+  productCard: '.features_items .col-sm-4 .productinfo',
+  productAdd: '.add-to-cart',
+  btnAddToCart: 'button:contains("Add to cart")',
+
   //pop-up
   modalContent: '#cartModal',
   continueButton: '.modal-footer .btn',
-  viewCart: '.text-center [href="/view_cart"]',
+  viewCart: 'a:contains("View Cart")',
   //product cards
   product: '#cart_info_table tbody tr',
   cartPrice: '#cart_info_table tbody tr .cart_price',
@@ -30,6 +33,14 @@ const productSelectors = {
   //search
   searchField: '#search_product',
   searchButton: '#submit_search',
+
+  //products
+  product1: 'Blue Top',
+  product2: 'Men Tshirt',
+  product3: 'Sleeveless Dress',
+
+  //product details
+  detailQuantity: '[name="quantity"]',
 }
 
 export { productSelectors }

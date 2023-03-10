@@ -4,7 +4,7 @@ const navbar = new NavbarPage()
 import { cartSelectors } from '../../../pageObject/cartPage'
 describe('S01: Cart navigation', () => {
   beforeEach(() => {
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get(selectors.homeIdentifier).should('be.visible')
   })

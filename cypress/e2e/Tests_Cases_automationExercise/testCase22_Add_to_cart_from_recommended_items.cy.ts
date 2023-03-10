@@ -2,7 +2,7 @@
 let num = 1
 describe('Test Case 22: Add to cart from Recommended items', () => {
   beforeEach(() => {
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
   })
 

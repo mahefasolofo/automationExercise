@@ -77,7 +77,7 @@ describe('Test Case 16: Place Order: Login before Checkout', () => {
         phoneNumber,
       )
     })
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get('#slider').should('be.visible')
   })

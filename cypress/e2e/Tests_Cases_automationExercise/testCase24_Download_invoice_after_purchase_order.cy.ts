@@ -56,7 +56,7 @@ describe('Test Case 24: Download Invoice after purchase order', () => {
         (cardMonth = item[randomUserNumber].cardMonth),
         (cardYear = item[randomUserNumber].cardYear)
     })
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
     //Verify that home page is visible successfully
     cy.get('#slider').should('be.visible')
@@ -128,8 +128,7 @@ describe('Test Case 24: Download Invoice after purchase order', () => {
       cardMonth,
       cardYear,
     )
-
-    //18. Verify success message 'Your order has been placed successfully!'
+    //FIXME:  cy.get('[href="/download_invoice/1900"').click()
   })
   afterEach(() => {
     cy.deleteUser(email, password)

@@ -4,7 +4,7 @@ const navbarPage = new NavbarPage()
 
 describe('Test Case 19: View & Cart Brand Products', () => {
   beforeEach(() => {
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get('#slider').should('be.visible')
   })

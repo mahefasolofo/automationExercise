@@ -27,7 +27,7 @@ let zipCode: string
 let phoneNumber: string
 describe('navigation on Navbar and checking', () => {
   beforeEach(() => {
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get('#slider').should('be.visible')
     cy.fixture('data.json').then((item) => {
@@ -119,7 +119,7 @@ describe('navigation on Navbar and checking', () => {
   // it('S10: Navigation to Video tutorial', () => {
   //   cy.get(selectors.navVideo).click()
   //   cy.url().should('eq', selectors.videoIdentifier)
-  //   cy.visit('https://automationexercise.com')
+  //   cy.visit('/')
   // })
   //WEL-T800
   it('S11: Navigate to Contact Us page', () => {

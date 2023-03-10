@@ -44,14 +44,14 @@ describe('navigation on home page', () => {
 
   //WEL-T788
   it('S01: When I type the URL of the site I arrive on the home page', () => {
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get(selectors.homeIdentifier).should('be.visible')
   })
 
   //WEL-T906
   it('S02 : As a logged in user when I clear cookies I should be logged out ', () => {
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get(selectors.homeIdentifier).should('be.visible')
     navbarPage.goToSignup()

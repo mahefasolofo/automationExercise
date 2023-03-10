@@ -1,17 +1,18 @@
 /// <reference types="cypress" />
-import { NavbarPage } from '../pageObject/navbarPage'
+import { NavbarPage, selectors } from '../pageObject/navbarPage'
 const navbarPage = new NavbarPage()
+import { productSelectors } from '../pageObject/productPage'
 describe('Test Case 13: Verify Product quantity in Cart', () => {
   it('Test Case 13: Verify Product quantity in Cart', () => {
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
-    cy.get('#slider').should('be.visible')
+    cy.get(selectors.homeIdentifier).should('be.visible')
     navbarPage.goToProduct()
-    cy.get('.features_items .col-sm-4:first a:contains("View Product")').click()
+    cy.get(productSelectors.viewProduct).eq(0).click()
     cy.url().should('eq', 'https://automationexercise.com/product_details/1')
-    cy.get('input[name="quantity"]').clear().type('4')
-    cy.get('button').contains('Add to cart').click()
-    cy.get('a').contains('View Cart').click()
+    cy.get(productSelectors.detailQuantity).type('4')
+    cy.get(productSelectors.btnAddToCart).click()
+    cy.get(productSelectors.viewCart).click()
     cy.get('#product-1').should('be.visible')
     cy.get('#product-1 .cart_quantity .disabled')
       .contains('4')

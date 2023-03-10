@@ -4,7 +4,7 @@ import { productSelectors } from '../../../../pageObject/productPage'
 import { selectors } from '../../../../pageObject/navbarPage'
 describe('Pop-up card modal "Added"', () => {
   beforeEach(() => {
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get(homeSelectors.homeIdentifier).should('be.visible')
   })

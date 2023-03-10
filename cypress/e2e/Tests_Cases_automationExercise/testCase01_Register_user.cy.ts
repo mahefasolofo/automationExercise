@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 const { faker } = require('@faker-js/faker')
 import { SingUpPage } from '../pageObject/signupPage'
-import { NavbarPage } from '../pageObject/navbarPage'
+import { NavbarPage, selectors } from '../pageObject/navbarPage'
 const signupPage = new SingUpPage()
 const navbarPage = new NavbarPage()
 
@@ -41,13 +41,15 @@ describe('Test Case 1: Register User', () => {
     })
   })
   it('Test Case 1:Register User', () => {
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
-    cy.get('#slider').should('be.visible')
+    cy.get(selectors.homeIdentifier).should('be.visible')
     navbarPage.goToSignup()
-    cy.get('.signup-form > h2').contains('New User Signup!')
     signupPage.fillSignupForm(name, email)
-    cy.get('.title').should('contain', 'Enter Account Information')
+    cy.get(selectors.signupSignupActionTitle).should(
+      'contain',
+      'Enter Account Information',
+    )
     signupPage.fillSignupAccountInformation(
       randomRadioButton,
       password,
@@ -63,12 +65,12 @@ describe('Test Case 1: Register User', () => {
       phoneNumber,
     )
     //verification
-    cy.get('.navbar-nav').should('contain', 'Logged in as ' + name)
+    cy.get(selectors.navbar).should('contain', 'Logged in as ' + name)
 
     // API Delete account
     cy.deleteUser(email, password)
     navbarPage.goToHome()
     cy.window().scrollTo('top')
-    cy.get('#slider').should('be.visible')
+    cy.get(selectors.homeIdentifier).should('be.visible')
   })
 })

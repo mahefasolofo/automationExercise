@@ -55,7 +55,7 @@ describe('Test Case 15: Place Order: Register before Checkout', () => {
         (cardMonth = item[randomUserNumber].cardMonth),
         (cardYear = item[randomUserNumber].cardYear)
     })
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get(selectors.homeIdentifier).should('be.visible')
   })

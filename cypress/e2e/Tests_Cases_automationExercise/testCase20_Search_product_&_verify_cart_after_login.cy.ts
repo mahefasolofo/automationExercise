@@ -63,7 +63,7 @@ describe('Test Case 20: Search Products and Verify Cart After Login', () => {
           phoneNumber,
         )
     })
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get('#slider').should('be.visible')
   })

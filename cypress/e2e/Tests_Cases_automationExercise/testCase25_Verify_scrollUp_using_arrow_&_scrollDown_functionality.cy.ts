@@ -2,7 +2,7 @@
 
 describe('Test Case 25: Verify Scroll Up using Arrow button and Scroll Down functionality', () => {
   beforeEach(() => {
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
     //Verify that home page is visible successfully
     cy.get('#slider').should('be.visible')

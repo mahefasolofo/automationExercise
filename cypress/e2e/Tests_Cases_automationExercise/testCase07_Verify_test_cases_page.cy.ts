@@ -1,11 +1,11 @@
 /// <reference types="cypress" />
-import { NavbarPage } from '../pageObject/navbarPage'
+import { NavbarPage, selectors } from '../pageObject/navbarPage'
 const navbarPage = new NavbarPage()
 describe('Test Case 7: Verify Test Cases Page', () => {
   it('Test Case 7: Verify Test Cases Page', () => {
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
-    cy.get('#slider').should('be.visible')
+    cy.get(selectors.homeIdentifier).should('be.visible')
     navbarPage.goToTestCases()
   })
 })

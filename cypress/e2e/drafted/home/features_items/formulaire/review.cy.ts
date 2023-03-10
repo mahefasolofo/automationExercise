@@ -17,7 +17,7 @@ describe('Add review on product and verification', () => {
       email = item[randomUserNumber].email
       name = item[randomUserNumber].name
     })
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
     // Click on 'Products' button
     navbarPage.goToProduct()

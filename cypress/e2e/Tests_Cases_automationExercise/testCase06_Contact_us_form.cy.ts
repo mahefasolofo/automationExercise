@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import { ContactPage } from '../pageObject/contactPage'
 const contactPage = new ContactPage()
-import { NavbarPage } from '../pageObject/navbarPage'
+import { NavbarPage, selectors } from '../pageObject/navbarPage'
 const navbarPage = new NavbarPage()
 let emailUser
 let nameUser
@@ -14,9 +14,9 @@ describe('Test Case 6 : Contact Us Form', () => {
     })
   })
   it('Test Case 6: Contact Us Form', () => {
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
-    cy.get('#slider').should('be.visible')
+    cy.get(selectors.homeIdentifier).should('be.visible')
     navbarPage.goToContactUs()
     contactPage.fillContactUs(nameUser, emailUser, 'invoice.txt')
     navbarPage.goToHome()

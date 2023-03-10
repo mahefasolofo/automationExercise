@@ -7,7 +7,7 @@ let number
 let count
 describe('The number in brackets to the right of each brand name must be identical to the number of items corresponding to the brand', () => {
   beforeEach(() => {
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get(homeSelectors.homeIdentifier).should('be.visible')
     cy.get(homeSelectors.brandsIdentifier).scrollIntoView()

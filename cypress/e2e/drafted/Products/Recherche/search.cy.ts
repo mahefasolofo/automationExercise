@@ -4,7 +4,7 @@ const navbar = new NavbarPage()
 import { productSelectors } from '../../../pageObject/productPage'
 describe('Search on Products page', () => {
   beforeEach(() => {
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get(selectors.homeIdentifier).should('be.visible')
   })

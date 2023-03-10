@@ -2,7 +2,7 @@
 import { homeSelectors } from '../../../../pageObject/homePage'
 describe('View Category Products', () => {
   beforeEach(() => {
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get(homeSelectors.homeIdentifier).should('be.visible')
   })

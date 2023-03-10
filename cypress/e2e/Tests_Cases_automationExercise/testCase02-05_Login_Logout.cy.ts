@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import LoginPage from '../pageObject/loginPage'
 const loginPage = new LoginPage()
-import { NavbarPage } from '../pageObject/navbarPage'
+import { NavbarPage, selectors } from '../pageObject/navbarPage'
 const navbarPage = new NavbarPage()
 import { SingUpPage } from '../pageObject/signupPage'
 const signUpPage = new SingUpPage()
@@ -73,39 +73,36 @@ describe('Test Cases Login Logout Signup with error', () => {
         phoneNumber,
       )
       //chargement de fixtures
-      cy.visit('https://automationexercise.com')
+      cy.visit('/')
       cy.url().should('eq', 'https://automationexercise.com/')
-      cy.get('#slider').should('be.visible')
+      cy.get(selectors.homeIdentifier).should('be.visible')
       navbarPage.goToSignup()
     })
   })
 
   it('Tests Case 2 : Login User with correct email and password', () => {
-    cy.get('.login-form > h2').should('contain', 'Login to your account')
     loginPage.fillLoginData(email, password)
-    cy.get('.navbar-nav').should('contain', 'Logged in as ' + name)
+    cy.get(selectors.navbar).should('contain', 'Logged in as ' + name)
     navbarPage.goToDelete()
   })
 
   it('Test case 3 : Login User with incorrect email and password', () => {
-    cy.get('.login-form > h2').should('contain', 'Login to your account')
+    cy.get(selectors.signupIdentifier).should('be.visible')
     loginPage.fillLoginData(emailUserError, passwordUserError)
-    cy.get('.login-form > form > p').contains(
-      'Your email or password is incorrect!',
-    )
+    cy.get(selectors.signupIncorrect).should('be.visible')
   })
 
   it('Test case 4 : Logout User', () => {
-    cy.get('.login-form > h2').should('contain', 'Login to your account')
+    cy.get(selectors.signupIdentifier).should('be.visible')
     loginPage.fillLoginData(email, password)
-    cy.get('.navbar-nav').should('contain', 'Logged in as ' + name)
+    cy.get(selectors.navbar).should('contain', 'Logged in as ' + name)
     navbarPage.goToLogout
   })
 
   it('Test case 5 : Register User with existing email', () => {
-    cy.get('.signup-form > h2').should('contain', 'New User Signup!')
+    cy.get(selectors.signupIdentifier).should('be.visible')
     signUpPage.fillSignupForm(name, email)
-    cy.get('.signup-form > form > p').contains('Email Address already exist!')
+    cy.get(selectors.registerError).should('be.visible')
   })
   afterEach(() => {
     cy.deleteUser(email, password)

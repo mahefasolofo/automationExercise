@@ -6,7 +6,7 @@ const addProduct = new AddProductPage()
 import { productSelectors } from '../../../../pageObject/productPage'
 describe('interaction with buttons in product page', () => {
   beforeEach(() => {
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get(selectors.homeIdentifier).should('be.visible')
   })
@@ -31,7 +31,7 @@ describe('interaction with buttons in product page', () => {
     cy.get(productSelectors.product).eq(0).should('be.visible')
     cy.get(productSelectors.product).eq(1).should('be.visible')
     cy.get(productSelectors.product).eq(2).should('be.visible')
-    // 10. Verify their prices, quantity and total price
+    // Verify their prices, quantity and total price
     cy.get(productSelectors.cartPrice).eq(0).should('be.visible')
     cy.get(productSelectors.cartQuantity).eq(0).should('be.visible')
     cy.get(productSelectors.cartTotal).eq(0).should('be.visible')

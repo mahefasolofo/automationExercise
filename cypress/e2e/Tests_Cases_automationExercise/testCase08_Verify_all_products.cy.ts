@@ -1,23 +1,22 @@
 /// <reference types="cypress" />
-import { NavbarPage } from '../pageObject/navbarPage'
+import { NavbarPage, selectors } from '../pageObject/navbarPage'
 const navbarPage = new NavbarPage()
+import { productSelectors } from '../pageObject/productPage'
 
 describe('Test Case 8: Verify All Products and product detail page', () => {
   it('Test Case 8: Verify All Products and product detail page', () => {
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
-    cy.get('#slider').should('be.visible')
+    cy.get(selectors.homeIdentifier).should('be.visible')
     navbarPage.goToProduct()
-    cy.get('.features_items .col-sm-4:first a:contains("View Product")').click()
+    cy.get(productSelectors.viewProduct).eq(0).click()
     cy.url().should('eq', 'https://automationexercise.com/product_details/1')
     //verify details are visible: product name, category, price, availability, condition, brand
-    cy.get('.product-information h2').should('be.visible')
-    cy.get('.product-information p:contains("Category")').should('be.visible')
-    cy.get('.product-information span:contains("Rs")').should('be.visible')
-    cy.get('.product-information p:contains("Availability")').should(
-      'be.visible',
-    )
-    cy.get('.product-information p:contains("Condition")').should('be.visible')
-    cy.get('.product-information p:contains("Brand")').should('be.visible')
+    cy.get(productSelectors.productTitle).should('be.visible')
+    cy.get(productSelectors.productCategory).should('be.visible')
+    cy.get(productSelectors.productPrice).should('be.visible')
+    cy.get(productSelectors.productAvailability).should('be.visible')
+    cy.get(productSelectors.productCondition).should('be.visible')
+    cy.get(productSelectors.productBrand).should('be.visible')
   })
 })

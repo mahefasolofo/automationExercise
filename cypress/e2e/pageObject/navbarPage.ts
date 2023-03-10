@@ -15,13 +15,29 @@ const selectors = {
   productIdentifier: '.features_items .title:contains("All Products")',
   cartIdentifier: '.active:contains("Shopping Cart")',
   signupIdentifier: '.login-form h2:contains("Login to your account")',
+  signupIncorrect:
+    '.login-form > form > p:contains("Your email or password is incorrect!")',
+  registerError:
+    '.signup-form > form > p:contains("Email Address already exist!")',
   signupSignupActionTitle: '.title',
-  testCasesIdentifier: '.title:contains("Test Cases")',
-  APITestingIdentifier: '.title:contains("APIs List for practice")',
   contactUsIdentifier: '.title:contains("Contact")',
   deleteAccountIdentifier: '[data-qa="account-deleted"]',
   deleteAccountButton: '[data-qa="continue-button"]',
   videoIdentifier: 'https://www.youtube.com/c/AutomationExercise',
+  mailtoLink: 'a[href="mailto:feedback@automationexercise.com"]',
+  //contacUs
+  inputFile: 'input[type="file"]',
+  contactUsGetintouch: '.title:contains("Get In Touch")',
+  contactUsFeedback: '.title:contains("Feedback For Us")',
+  //test cases and API testing
+  testCasesIdentifier: '.title:contains("Test Cases")',
+  APITestingIdentifier: '.title:contains("APIs List for practice")',
+  testCaseList: '#form .container',
+  testCaseListCollapse: '.panel-collapse',
+  APITestingFirstCollapse: '[href="#collapse1"]',
+  APITestingFirstLink: '#collapse1 .list-group :nth-child(1) a',
+  //footer
+  footerIdentifier: '#footer',
 }
 class NavbarPage {
   goToHome() {

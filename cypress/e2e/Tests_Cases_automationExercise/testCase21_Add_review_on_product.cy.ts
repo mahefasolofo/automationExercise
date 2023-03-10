@@ -16,7 +16,7 @@ describe('Test Case 21: Add review on product', () => {
       email = item[randomUserNumber].email
       name = item[randomUserNumber].name
     })
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
   })
 

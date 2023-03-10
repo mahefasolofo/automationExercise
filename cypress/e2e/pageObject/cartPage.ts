@@ -8,6 +8,9 @@ const cartSelectors = {
   expiryYearField: '[name="expiry_year"]',
   firstProductImage: '#product-1 > .cart_product > a > .product_image',
   productDetailsIdentifier: '.product-details',
+  btnCheckout: '.btn:contains("Proceed To Checkout")',
+  //pop-up
+  btnRegister: 'a:contains("Register / Login")',
 }
 
 export { cartSelectors }

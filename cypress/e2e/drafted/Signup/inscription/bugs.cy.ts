@@ -14,7 +14,7 @@ let email: string
 //WEL-T907
 describe('bugs on filling signup fields', () => {
   beforeEach(() => {
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get(selectors.homeIdentifier).should('be.visible')
     cy.fixture('data.json').then((item) => {

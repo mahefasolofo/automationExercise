@@ -5,7 +5,7 @@ import { selectors } from '../../../pageObject/contactPage'
 
 describe('send an email via the mailto link', () => {
   beforeEach(() => {
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get(selectors.homeIdentifier).should('be.visible')
   })

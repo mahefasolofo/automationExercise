@@ -1,7 +1,7 @@
 ///<reference types="cypress" />
-import { SingUpPage } from '../pageObject/signupPage'
+import { SingUpPage, signupSelectors } from '../pageObject/signupPage'
 const signupPage = new SingUpPage()
-import { NavbarPage } from '../pageObject/navbarPage'
+import { NavbarPage, selectors } from '../pageObject/navbarPage'
 const navbarPage = new NavbarPage()
 import VerificationPage from '../pageObject/verificationPage'
 const verificationPage = new VerificationPage()
@@ -9,7 +9,7 @@ import PaymentPage from '../pageObject/payementPage'
 const paymentPage = new PaymentPage()
 import AddProductPage from '../pageObject/addProductPage'
 const addProductPage = new AddProductPage()
-
+import { cartSelectors } from '../pageObject/cartPage'
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
@@ -54,9 +54,9 @@ describe('Test Case 14: Place Order: Register while Checkout', () => {
         (cardMonth = item[randomUserNumber].cardMonth),
         (cardYear = item[randomUserNumber].cardYear)
     })
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
-    cy.get('#slider').should('be.visible')
+    cy.get(selectors.homeIdentifier).should('be.visible')
   })
 
   it('test case 14: Place Order: Register while Checkout', () => {
@@ -65,14 +65,14 @@ describe('Test Case 14: Place Order: Register while Checkout', () => {
     addProductPage.addRandomProduct()
     navbarPage.goToCart()
     //verify that cart page is displayed
-    cy.get('.active:contains("Shopping Cart")').should('be.visible')
+    cy.get(selectors.cartIdentifier).should('be.visible')
     //Proceed to checkout
-    cy.get('.btn:contains("Proceed To Checkout")').click()
+    cy.get(cartSelectors.btnCheckout).click()
     // Click 'Register / Login' button
-    cy.get('a').contains('Register / Login').click()
+    cy.get(cartSelectors.btnRegister).click()
     //Fill all details in Signup and create account
     signupPage.fillSignupForm(name, email)
-    cy.get('.title').should('contain', 'Enter Account Information')
+    cy.get(signupSelectors.title2).should('be.visible')
     signupPage.fillSignupAccountInformation(
       randomRadioButton,
       password,
@@ -88,10 +88,10 @@ describe('Test Case 14: Place Order: Register while Checkout', () => {
       phoneNumber,
     )
     //verification
-    cy.get('.navbar-nav').should('contain', 'Logged in as ' + name)
+    cy.get(selectors.navbar).should('contain', 'Logged in as ' + name)
     navbarPage.goToCart()
     //Proceed to checkout
-    cy.get('.btn:contains("Proceed To Checkout")').click()
+    cy.get(cartSelectors.btnCheckout).click()
     verificationPage.addressDelivery(
       gender,
       name,

@@ -5,7 +5,7 @@ import AddProductPage from '../pageObject/addProductPage'
 const addProductPage = new AddProductPage()
 describe('Test Case 17: Remove Products From Cart', () => {
   beforeEach(() => {
-    cy.visit('https://automationexercise.com')
+    cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
     cy.get('#slider').should('be.visible')
   })
