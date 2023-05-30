@@ -2,7 +2,7 @@
 
 import LoginPage from '../pageObject/loginPage'
 const loginPage = new LoginPage()
-import { NavbarPage } from '../pageObject/navbarPage'
+import { NavbarPage, selectors } from '../pageObject/navbarPage'
 const navbarPage = new NavbarPage()
 import VerificationPage from '../pageObject/verificationPage'
 const verificationPage = new VerificationPage()
@@ -79,7 +79,7 @@ describe('Test Case 16: Place Order: Login before Checkout', () => {
     })
     cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
-    cy.get('#slider').should('be.visible')
+    cy.get(selectors.homeIdentifier).should('be.visible')
   })
 
   it('Tests Case 16: Place Order: Login before Checkout', () => {

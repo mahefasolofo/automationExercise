@@ -9,6 +9,7 @@ const verificationPage = new VerificationPage()
 import PaymentPage from '../pageObject/payementPage'
 const paymentPage = new PaymentPage()
 import AddProductPage from '../pageObject/addProductPage'
+import { cartSelectors } from '../pageObject/cartPage'
 const addProductPage = new AddProductPage()
 
 function getRandomInt(min, max) {
@@ -63,7 +64,7 @@ describe('Test Case 15: Place Order: Register before Checkout', () => {
   it('test case 15: Place Order: Register before Checkout', () => {
     //Fill all details in Signup and create account
     navbarPage.goToSignup()
-    cy.get('h2').should('contain', 'New User Signup!')
+    cy.get(selectors.signupIdentifier).should('be.visible')
 
     signupPage.fillSignupForm(name, email)
     cy.get('.title').should('contain', 'Enter Account Information')
@@ -91,7 +92,7 @@ describe('Test Case 15: Place Order: Register before Checkout', () => {
     navbarPage.goToCart()
 
     //Proceed to checkout
-    cy.get('.btn:contains("Proceed To Checkout")').click()
+    cy.get(cartSelectors.btnCheckout).click()
 
     verificationPage.addressBilling(
       title,
@@ -113,8 +114,8 @@ describe('Test Case 15: Place Order: Register before Checkout', () => {
       phoneNumber,
     )
     //message
-    cy.get('[name="message"]').type('Checked OK to Place order')
-    cy.get('a').contains('Place Order').click()
+    cy.get(cartSelectors.messageField).type('Checked OK to Place order')
+    cy.get(cartSelectors.placeOrder).click()
     paymentPage.fillPaymentForm(
       name,
       lastName,
@@ -127,8 +128,5 @@ describe('Test Case 15: Place Order: Register before Checkout', () => {
   afterEach(() => {
     //Delete account
     cy.deleteUser(email, password)
-    navbarPage.goToHome()
-    cy.window().scrollTo('top')
-    cy.get(selectors.navbar).should('be.visible')
   })
 })

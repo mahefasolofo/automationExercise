@@ -113,8 +113,8 @@ describe('Test Case 14: Place Order: Register while Checkout', () => {
       phoneNumber,
     )
     //message
-    cy.get('[name="message"]').type('Checked OK to Place order')
-    cy.get('a').contains('Place Order').click()
+    cy.get(cartSelectors.messageField).type('Checked OK to Place order')
+    cy.get(cartSelectors.placeOrder).click()
     paymentPage.fillPaymentForm(
       name,
       lastName,
@@ -123,11 +123,10 @@ describe('Test Case 14: Place Order: Register while Checkout', () => {
       cardMonth,
       cardYear,
     )
+    // verification
+    cy.get(cartSelectors.orderPlaced)
   })
   afterEach(() => {
     cy.deleteUser(email, password)
-    navbarPage.goToHome()
-    cy.window().scrollTo('top')
-    cy.get('.navbar-nav [href="/login"]').should('be.visible')
   })
 })

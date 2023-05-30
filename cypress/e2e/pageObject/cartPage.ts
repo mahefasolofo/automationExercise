@@ -11,6 +11,10 @@ const cartSelectors = {
   btnCheckout: '.btn:contains("Proceed To Checkout")',
   //pop-up
   btnRegister: 'a:contains("Register / Login")',
+  //message
+  messageField: '[name="message"]',
+  placeOrder: 'a:contains("Place Order")',
+  orderPlaced: '.title b:contains("Order Placed!")',
 }
 
 export { cartSelectors }

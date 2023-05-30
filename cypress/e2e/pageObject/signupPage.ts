@@ -17,6 +17,7 @@ const signupSelectors = {
   signupButtonCreate: '[data-qa="create-account"]',
   title: '.title',
   title2: '.title:contains("Enter Account Information")',
+  signupIdentifier: 'h2:contains("New User Signup!")',
 }
 class SingUpPage {
   fillSignupForm(name: string, email: string) {
