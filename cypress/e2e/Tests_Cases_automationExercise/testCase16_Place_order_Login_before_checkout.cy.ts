@@ -10,6 +10,7 @@ import PaymentPage from '../pageObject/payementPage'
 const paymentPage = new PaymentPage()
 import AddProductPage from '../pageObject/addProductPage'
 const addProductPage = new AddProductPage()
+import { cartSelectors } from '../pageObject/cartPage'
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
@@ -84,9 +85,9 @@ describe('Test Case 16: Place Order: Login before Checkout', () => {
 
   it('Tests Case 16: Place Order: Login before Checkout', () => {
     navbarPage.goToSignup()
-    cy.get('h2').should('contain', 'Login to your account')
+    cy.get(selectors.loginToYourAccount).should('exist')
     loginPage.fillLoginData(email, password)
-    cy.get('.navbar-nav').should('contain', 'Logged in as ' + name)
+    cy.get(selectors.navbar).should('contain', 'Logged in as ' + name)
     //Add product to Cart
     navbarPage.goToProduct()
     addProductPage.addRandomProduct()
@@ -94,7 +95,7 @@ describe('Test Case 16: Place Order: Login before Checkout', () => {
     navbarPage.goToCart()
 
     //Proceed to checkout
-    cy.get('.btn:contains("Proceed To Checkout")').click()
+    cy.get(cartSelectors.btnCheckout).click()
     //Address Details Verification
     verificationPage.addressDelivery(
       title,
@@ -117,10 +118,10 @@ describe('Test Case 16: Place Order: Login before Checkout', () => {
     )
 
     //message
-    cy.get('[name="message"]').type('Checked OK to Place order')
+    cy.get(cartSelectors.messageField).type('Checked OK to Place order')
 
     //Enter payment details:
-    cy.get('a').contains('Place Order').click()
+    cy.get(cartSelectors.placeOrder).click()
     paymentPage.fillPaymentForm(
       name,
       lastName,

@@ -67,7 +67,10 @@ describe('Test Case 15: Place Order: Register before Checkout', () => {
     cy.get(selectors.signupIdentifier).should('be.visible')
 
     signupPage.fillSignupForm(name, email)
-    cy.get('.title').should('contain', 'Enter Account Information')
+    cy.get(selectors.signupSignupActionTitle).should(
+      'contain',
+      'Enter Account Information',
+    )
     //
     signupPage.fillSignupAccountInformation(
       randomRadioButton,

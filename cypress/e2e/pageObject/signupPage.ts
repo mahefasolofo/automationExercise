@@ -18,6 +18,11 @@ const signupSelectors = {
   title: '.title',
   title2: '.title:contains("Enter Account Information")',
   signupIdentifier: 'h2:contains("New User Signup!")',
+  checkoutBtn: '.btn:contains("Proceed To Checkout")',
+  registerModal: 'u:contains("Register / Login")',
+  downloadLink: '[href="/download_invoice/1900"]',
+  placeOrderMessage: '[name="message"]',
+  placeOrderOk: 'a:contains("Place Order")',
 }
 class SingUpPage {
   fillSignupForm(name: string, email: string) {

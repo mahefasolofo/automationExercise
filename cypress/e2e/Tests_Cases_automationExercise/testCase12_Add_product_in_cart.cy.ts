@@ -14,7 +14,7 @@ describe('Test Case 12: Add Products in Cart', () => {
     addProduct.addRandomProduct()
     navbarPage.goToCart()
     //     9. Verify both products are added to Cart
-    cy.get('#product-1').should('be.visible')
+    cy.get('#product-1').should('be.visible') //TODO
     cy.get('#product-2').should('be.visible')
     cy.get('#product-3').should('be.visible')
     // 10. Verify their prices, quantity and total price

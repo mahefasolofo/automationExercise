@@ -38,6 +38,7 @@ const selectors = {
   APITestingFirstLink: '#collapse1 .list-group :nth-child(1) a',
   //footer
   footerIdentifier: '#footer',
+  loginToYourAccount: 'h2:contains("Login to your account")',
 }
 class NavbarPage {
   goToHome() {

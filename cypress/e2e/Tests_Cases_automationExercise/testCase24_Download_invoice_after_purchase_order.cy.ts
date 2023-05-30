@@ -1,10 +1,10 @@
 /// <reference types="cypress" />
 
-import { SingUpPage } from '../pageObject/signupPage'
+import { SingUpPage, signupSelectors } from '../pageObject/signupPage'
 const signUpPage = new SingUpPage()
 import AddProductPage from '../pageObject/addProductPage'
 const addProductPage = new AddProductPage()
-import { NavbarPage } from '../pageObject/navbarPage'
+import { NavbarPage, selectors } from '../pageObject/navbarPage'
 const navbarPage = new NavbarPage()
 import VerificationPage from '../pageObject/verificationPage'
 const verificationPage = new VerificationPage()
@@ -59,7 +59,7 @@ describe('Test Case 24: Download Invoice after purchase order', () => {
     cy.visit('/')
     cy.url().should('eq', 'https://automationexercise.com/')
     //Verify that home page is visible successfully
-    cy.get('#slider').should('be.visible')
+    cy.get(selectors.homeIdentifier).should('be.visible')
   })
 
   it('Tests Case 24: Download Invoice after purchase order', () => {
@@ -69,13 +69,13 @@ describe('Test Case 24: Download Invoice after purchase order', () => {
     // 5. Click 'Cart' button
     navbarPage.goToCart()
     // 7. Click Proceed To Checkout
-    cy.get('.btn:contains("Proceed To Checkout")').click()
+    cy.get(signupSelectors.checkoutBtn).click()
     // 8. Click 'Register / Login' button
-    cy.get('u:contains("Register / Login")').click()
+    cy.get(signupSelectors.registerModal).click()
     // 9. Fill all details in Signup and create account
 
     signUpPage.fillSignupForm(name, email)
-    cy.get('.title').should('contain', 'Enter Account Information')
+    cy.get(signupSelectors.title).should('contain', 'Enter Account Information')
     signUpPage.fillSignupAccountInformation(
       randomRadioButton,
       password,
@@ -91,11 +91,11 @@ describe('Test Case 24: Download Invoice after purchase order', () => {
       phoneNumber,
     )
     //verification
-    cy.get('.navbar-nav').should('contain', 'Logged in as ' + name)
+    cy.get(selectors.navbar).should('contain', 'Logged in as ' + name)
 
     // 12. Click Cart button
     navbarPage.goToCart()
-    cy.get('.btn:contains("Proceed To Checkout")').click()
+    cy.get(signupSelectors.checkoutBtn).click()
     // 14. Verify that the delivery address is same address filled at the time registration of account
     //Address Details Verification
     verificationPage.addressDelivery(
@@ -117,9 +117,9 @@ describe('Test Case 24: Download Invoice after purchase order', () => {
       zipCode,
       phoneNumber,
     )
-    cy.get('[name="message"]').type('Checked OK to Place order')
+    cy.get(signupSelectors.placeOrderMessage).type('Checked OK to Place order')
     //Enter payment details:
-    cy.get('a').contains('Place Order').click()
+    cy.get(signupSelectors.placeOrderOk).click()
     paymentPage.fillPaymentForm(
       name,
       lastName,
@@ -128,7 +128,27 @@ describe('Test Case 24: Download Invoice after purchase order', () => {
       cardMonth,
       cardYear,
     )
-    //FIXME:  cy.get('[href="/download_invoice/1900"').click()
+    // cy.get(signupSelectors.downloadLink)
+    //   .invoke('attr', 'https://automationexercise.com/download_invoice/1900')
+    //   .then((url) => {
+    //     cy.request({
+    //       url: url,
+    //       method: 'GET',
+    //     }).then((response) => {
+    //       expect(response.body).to.have.length.above(0)
+    //     })
+    //   })
+    cy.get(signupSelectors.downloadLink)
+      .invoke('attr', 'href')
+      .then((href) => {
+        const fullUrl = 'https://automationexercise.com' + href
+        cy.request({
+          url: fullUrl,
+          method: 'GET',
+        }).then((response) => {
+          expect(response.body).to.have.length.above(0)
+        })
+      })
   })
   afterEach(() => {
     cy.deleteUser(email, password)
