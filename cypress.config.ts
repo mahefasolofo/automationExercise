@@ -1,4 +1,5 @@
 import { defineConfig } from 'cypress'
+// import * from 'fs'
 
 export default defineConfig({
   reporter: 'mochawesome',
@@ -7,6 +8,7 @@ export default defineConfig({
     overwrite: false,
     html: false,
     json: true,
+    video: true,
     pageLoadTimeout: 12000,
   },
 
@@ -15,5 +17,6 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
+    baseUrl: 'https://automationexercise.com',
   },
 })

@@ -27,6 +27,18 @@ jobs:
       run: npm ci
     - name: Run tests
       run: npm run cy:run
+    - name: Upload Screenshots reports
+      if: failure()
+      uses: actions/upload-artifact@v2
+      with:
+        name: cypress-screenshots
+        path: cypress/screenshots
+    - name: Upload video reports
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: videos
+        path: cypress/videos
     - name: Merge reports
       if: always()
       run: npm run report:merge

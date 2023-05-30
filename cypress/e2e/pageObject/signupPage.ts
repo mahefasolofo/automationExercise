@@ -1,4 +1,4 @@
-const selectors = {
+const signupSelectors = {
   signupName: '[data-qa="signup-name"]',
   signupEmail: '[data-qa="signup-email"]',
   signupButton: '[data-qa="signup-button"]',
@@ -15,12 +15,15 @@ const selectors = {
   signupZipCode: '#zipcode',
   signupMobile: '#mobile_number',
   signupButtonCreate: '[data-qa="create-account"]',
+  title: '.title',
+  title2: '.title:contains("Enter Account Information")',
+  signupIdentifier: 'h2:contains("New User Signup!")',
 }
 class SingUpPage {
   fillSignupForm(name: string, email: string) {
-    cy.get(selectors.signupName).type(name)
-    cy.get(selectors.signupEmail).type(email)
-    cy.get(selectors.signupButton).click()
+    cy.get(signupSelectors.signupName).type(name)
+    cy.get(signupSelectors.signupEmail).type(email)
+    cy.get(signupSelectors.signupButton).click()
   }
 
   fillSignupAccountInformation(
@@ -37,20 +40,20 @@ class SingUpPage {
     zipCode: string,
     phoneNumber: string,
   ) {
-    // cy.get(selectors.signupTitle).check()
+    // cy.get(signupSelectors.signupTitle).check()
     cy.get(randomRadioButton).check()
-    cy.get(selectors.signupPassword).type(password)
-    cy.get(selectors.signupFirstName).type(firstName)
-    cy.get(selectors.signupLastName).type(lastName)
-    cy.get(selectors.signupCompany).type(companyName)
-    cy.get(selectors.signupAddress1).type(address1)
-    cy.get(selectors.signupAddress2).type(address2)
-    cy.get(selectors.signupCountry).select(country)
-    cy.get(selectors.signupState).type(state)
-    cy.get(selectors.signupCity).type(city)
-    cy.get(selectors.signupZipCode).type(zipCode)
-    cy.get(selectors.signupMobile).type(phoneNumber)
-    cy.get(selectors.signupButtonCreate).click()
+    cy.get(signupSelectors.signupPassword).type(password)
+    cy.get(signupSelectors.signupFirstName).type(firstName)
+    cy.get(signupSelectors.signupLastName).type(lastName)
+    cy.get(signupSelectors.signupCompany).type(companyName)
+    cy.get(signupSelectors.signupAddress1).type(address1)
+    cy.get(signupSelectors.signupAddress2).type(address2)
+    cy.get(signupSelectors.signupCountry).select(country)
+    cy.get(signupSelectors.signupState).type(state)
+    cy.get(signupSelectors.signupCity).type(city)
+    cy.get(signupSelectors.signupZipCode).type(zipCode)
+    cy.get(signupSelectors.signupMobile).type(phoneNumber)
+    cy.get(signupSelectors.signupButtonCreate).click()
     cy.get('[data-qa="account-created"]').should('contain', 'Account Created!')
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(500)
@@ -58,4 +61,4 @@ class SingUpPage {
   }
 }
 
-export default SingUpPage
+export { SingUpPage, signupSelectors }

@@ -1,18 +1,33 @@
-const selectors = {
-  productN1: '.overlay-content [data-product-id="1"]',
-  productN2: '.overlay-content [data-product-id="2"]',
-  productN3: '.overlay-content [data-product-id="3"]',
-  continueButton: 'button:contains("Continue Shopping")',
-}
+import { productSelectors } from './productPage'
 
 class AddProductPage {
   addRandomProduct() {
-    cy.get(selectors.productN1).click({ force: true })
-    cy.get(selectors.continueButton).click()
-    cy.get(selectors.productN2).click({ force: true })
-    cy.get(selectors.continueButton).click()
-    cy.get(selectors.productN3).click({ force: true })
-    cy.get(selectors.continueButton).click()
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
+    cy.get(productSelectors.productCard)
+      .contains(productSelectors.product1)
+      .siblings(productSelectors.productAdd)
+      .click()
+    cy.get(productSelectors.modalContent).should('be.visible', {
+      timeout: 10000,
+    })
+    cy.get(productSelectors.continueButton).click()
+    cy.get(productSelectors.productCard)
+      .contains(productSelectors.product2)
+      .siblings(productSelectors.productAdd)
+      .click()
+    cy.get(productSelectors.modalContent).should('be.visible', {
+      timeout: 10000,
+    })
+    cy.get(productSelectors.continueButton).click()
+    cy.get(productSelectors.productCard)
+      .contains(productSelectors.product3)
+      .siblings(productSelectors.productAdd)
+      .click()
+    cy.get(productSelectors.modalContent).should('be.visible', {
+      timeout: 10000,
+    })
+    cy.get(productSelectors.continueButton).click()
   }
 }
 

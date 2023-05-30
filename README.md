@@ -3,3 +3,4 @@ So test cases proposed in the site but also other test cases from the writing of
 The automated tests are written in Clean Code using Typescript associated with EsLint and Prettier.
 
 Mahefa Rasolofonirina
+
